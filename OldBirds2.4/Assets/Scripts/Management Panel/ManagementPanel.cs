@@ -7,12 +7,12 @@ public class ManagementPanel : MonoBehaviour {
 	private ArrayList selectedBirds;
 	private GameObject[] selectedBirdObjects;
 
-	bool isCreating;
+	private bool isCreating;
 
 	public GameObject start;
 	public GameObject end;
 	public GameObject sphere;
-	private GameObject selectedObject;
+	public GameObject selectedObject;
 	// Use this for initialization
 	void Start () {
 		selectedBirds = new ArrayList();
@@ -34,29 +34,32 @@ public class ManagementPanel : MonoBehaviour {
 		else if (Input.GetMouseButtonUp(0)) {
 			setEnd ();
 
-		} //else {
-		//if (creating) {
-		//	adjust ();
-		//}
-		//}
+		}
 	}
-	void createBall(){
+
+	private Vector3 getWorldPoint(){
+		Ray ray = GetComponent<Camera>().ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit;
+		if(Physics.Raycast(ray, out hit)){
+			return hit.point;
+		}
+		return Vector3.zero;
+	}
+
+	private void createBall(){
 		selectedObject = Instantiate (sphere, getWorldPoint(), Quaternion.identity) as GameObject;
 	}
-	void setSelectedObjectPosition(){
+	private void setSelectedObjectPosition(){
 		selectedObject.transform.position = getWorldPoint ();
 	}
-	void setStart (){
+	private void setStart (){
 		isCreating = true;
 	}
-	void setEnd (){
+	private void setEnd (){
 		isCreating = false;
 	}
-	void adjust (){
 
-	}
-
-	void handleSelection() {
+	private void handleSelection() {
 		Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 		RaycastHit hit;
 		if( Physics.Raycast( ray, out hit, 2000 ) )
@@ -114,15 +117,6 @@ public class ManagementPanel : MonoBehaviour {
 		found = false;
 	}
 
-	Vector3 getWorldPoint(){
-		Ray ray = GetComponent<Camera>().ScreenPointToRay (Input.mousePosition);
-		RaycastHit hit;
-		if(Physics.Raycast(ray, out hit)){
-			return hit.point;
-		}
-		return Vector3.zero;
-	}
-
 	public ArrayList getSelectionList() {
 		return this.selectedBirds;
 	}
@@ -150,5 +144,9 @@ public class ManagementPanel : MonoBehaviour {
 		foreach(GameObject bird in selectedBirdObjects) {
 			bird.GetComponent<InformationTextScript>().show();
 		}
+	}
+
+	public GameObject getSelectedObject() {
+		return this.selectedObject;
 	}
 }
