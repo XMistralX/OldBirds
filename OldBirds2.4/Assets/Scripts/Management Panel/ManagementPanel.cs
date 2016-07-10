@@ -11,7 +11,7 @@ public class ManagementPanel : MonoBehaviour {
 
 	public GameObject start;
 	public GameObject end;
-	public GameObject sphere;
+	public GameObject creatingObject;
 	public GameObject selectedObject;
 	// Use this for initialization
 	void Start () {
@@ -46,8 +46,12 @@ public class ManagementPanel : MonoBehaviour {
 		return Vector3.zero;
 	}
 
+	public void changeCreatingObject(GameObject thatGameObject) {
+		this.creatingObject = thatGameObject;
+	}
+
 	private void createBall(){
-		selectedObject = Instantiate (sphere, getWorldPoint(), Quaternion.identity) as GameObject;
+		selectedObject = Instantiate (creatingObject, getWorldPoint(), Quaternion.identity) as GameObject;
 	}
 	private void setSelectedObjectPosition(){
 		selectedObject.transform.position = getWorldPoint ();
@@ -64,6 +68,7 @@ public class ManagementPanel : MonoBehaviour {
 		RaycastHit hit;
 		if( Physics.Raycast( ray, out hit, 2000 ) )
 		{
+			Debug.Log (hit.transform.gameObject);
 			// Accept only transforms tagged with "Bird"
 			if (hit.transform.tag == "Bird") {
 				selectBird (hit);
@@ -71,8 +76,10 @@ public class ManagementPanel : MonoBehaviour {
 				selectedObject = hit.transform.gameObject;
 				setStart ();
 			} else {
-				setStart ();
-				createBall ();
+				if (creatingObject) {
+					setStart ();
+					createBall ();
+				}
 			}
 
 		}
