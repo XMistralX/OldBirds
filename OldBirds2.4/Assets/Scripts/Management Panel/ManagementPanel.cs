@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class ManagementPanel : MonoBehaviour {
 
@@ -8,6 +9,8 @@ public class ManagementPanel : MonoBehaviour {
 	private GameObject[] selectedBirdObjects;
 
 	private bool isCreating;
+	private bool isSelecting;
+
 	public GameObject creatingObject;
 	public GameObject selectedObject;
 
@@ -24,21 +27,41 @@ public class ManagementPanel : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		getInput ();
+		handleInput ();
 
 	}
-	void getInput () {
-		if (Input.GetMouseButtonDown (0)) {
-			handleSelection();
-		} else if ( Input.GetMouseButton(0)) {
-			if (isCreating) {
-				setSelectedObjectPosition ();
 
+	void handleInput () {
+		Debug.Log (this.selectedObject);
+		if (isCreating) {
+			setSelectedObjectPosition (getWorldPoint());
+			if (Input.GetMouseButtonDown (0)) {
+				// Check if mouse isn't over a UI Element
+				if(!EventSystem.current.IsPointerOverGameObject()) {
+					this.isCreating = false;
+					selectedObject = null;
+				}
 			}
-		}
-		else if (Input.GetMouseButtonUp(0)) {
-			setEnd ();
+		} else {
+			if (Input.GetMouseButtonDown (0)) {
+				if (!isSelecting) {
+					handleSelection ();
+				}
 
+			} else if ( Input.GetMouseButton(1)) {
+				if (isSelecting) {
+					isSelecting = false;
+					selectedObject = null;
+				}
+			} else if ( Input.GetMouseButton(0)) {
+				Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
+				RaycastHit hit;
+				if (isSelecting && getPointerObject() == this.selectedObject) {
+					setSelectedObjectPosition (getWorldPoint());
+				}
+			}
+			else if (Input.GetMouseButtonUp(0)) {
+			}
 		}
 	}
 
@@ -51,16 +74,27 @@ public class ManagementPanel : MonoBehaviour {
 		return Vector3.zero;
 	}
 
-	public void changeCreatingObject(GameObject thatGameObject) {
-		this.creatingObject = thatGameObject;
+	public void changeCreatingObject(GameObject creatingGameObject) {
+		//toggle on/off
+		if (this.isCreating) {
+			Destroy (this.selectedObject);
+
+			if(this.creatingObject == creatingGameObject){
+				this.isCreating = false;
+				this.creatingObject = null;
+				return;
+			}
+		}
+		this.isCreating = true;
+		this.creatingObject = creatingGameObject;
+		createObject ();
 	}
 
-	private void createSelectedObj(){
+	private void createObject(){
 		selectedObject = Instantiate (creatingObject, getWorldPoint(), Quaternion.identity) as GameObject;
-		changeObjectScale (scaleUp);
 	}
-	private void setSelectedObjectPosition(){
-		selectedObject.transform.position = getWorldPoint ();
+	private void setSelectedObjectPosition(Vector3 pos){
+		selectedObject.transform.position = pos;
 	}
 	public void changeObjectRotation(int axis , int angle){
 		switch(axis){
@@ -108,11 +142,14 @@ public class ManagementPanel : MonoBehaviour {
 		}
 
 	}
-	private void setStart (){
-		isCreating = true;
-	}
-	private void setEnd (){
-		isCreating = false;
+
+	private GameObject getPointerObject() {
+		Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
+		RaycastHit hit;
+		if (Physics.Raycast (ray, out hit, 2000)) {
+			return hit.transform.gameObject;
+		}
+		return null;
 	}
 
 	private void handleSelection() {
@@ -120,18 +157,15 @@ public class ManagementPanel : MonoBehaviour {
 		RaycastHit hit;
 		if( Physics.Raycast( ray, out hit, 2000 ) )
 		{
-			Debug.Log (hit.transform.gameObject);
 			// Accept only transforms tagged with "Bird"
 			if (hit.transform.tag == "Bird") {
 				selectBird (hit);
+				this.isSelecting = true;
 			} else if (hit.transform.tag == "ManagementObject") {
 				selectedObject = hit.transform.gameObject;
-				setStart ();
+				this.isSelecting = true;
 			} else {
-				if (creatingObject) {
-					setStart ();
-					createSelectedObj ();
-				}
+				//other
 			}
 
 		}
