@@ -8,11 +8,15 @@ public class ManagementPanel : MonoBehaviour {
 	private GameObject[] selectedBirdObjects;
 
 	private bool isCreating;
-
-	public GameObject start;
-	public GameObject end;
 	public GameObject creatingObject;
 	public GameObject selectedObject;
+
+	private const int x = 0;
+	private const int y = 1;
+	private const int z = 2;
+
+	private const int scaleUp = 0;
+	private const int scaleDown = 1;
 	// Use this for initialization
 	void Start () {
 		selectedBirds = new ArrayList();
@@ -29,6 +33,7 @@ public class ManagementPanel : MonoBehaviour {
 		} else if ( Input.GetMouseButton(0)) {
 			if (isCreating) {
 				setSelectedObjectPosition ();
+
 			}
 		}
 		else if (Input.GetMouseButtonUp(0)) {
@@ -50,11 +55,50 @@ public class ManagementPanel : MonoBehaviour {
 		this.creatingObject = thatGameObject;
 	}
 
-	private void createBall(){
+	private void createSelectedObj(){
 		selectedObject = Instantiate (creatingObject, getWorldPoint(), Quaternion.identity) as GameObject;
+		changeObjectScale (scaleUp);
 	}
 	private void setSelectedObjectPosition(){
 		selectedObject.transform.position = getWorldPoint ();
+	}
+	public void changeObjectRotation(int axis , int angle){
+		switch(axis){
+		case x:
+			selectedObject.transform.eulerAngles = new Vector3 (
+				selectedObject.transform.eulerAngles.x + angle,
+				selectedObject.transform.eulerAngles.y,
+				selectedObject.transform.eulerAngles.z
+			);
+			break;
+		case y:
+			selectedObject.transform.eulerAngles = new Vector3 (
+				selectedObject.transform.eulerAngles.x,
+				selectedObject.transform.eulerAngles.y  + angle,
+				selectedObject.transform.eulerAngles.z
+			);
+			break;
+		case z:
+			selectedObject.transform.eulerAngles = new Vector3 (
+				selectedObject.transform.eulerAngles.x,
+				selectedObject.transform.eulerAngles.y,
+				selectedObject.transform.eulerAngles.z   + angle
+			);
+			break;
+		default:
+			break;
+		}
+	}
+	public void changeObjectScale(int choice){
+		switch (choice) {
+		case scaleUp:
+			selectedObject.transform.localScale *= 2;
+			break;
+		case scaleDown:
+			selectedObject.transform.localScale /= 2;
+			break;
+		}
+
 	}
 	private void setStart (){
 		isCreating = true;
@@ -78,13 +122,13 @@ public class ManagementPanel : MonoBehaviour {
 			} else {
 				if (creatingObject) {
 					setStart ();
-					createBall ();
+					createSelectedObj ();
 				}
 			}
 
 		}
 	}
-
+		
 	void selectBird(RaycastHit hit) {
 		// Check if gameobject found in list already
 		bool found = false;
