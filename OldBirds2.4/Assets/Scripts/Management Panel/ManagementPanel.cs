@@ -10,6 +10,7 @@ public class ManagementPanel : MonoBehaviour {
 
 	private bool isCreating;
 	private bool isSelecting;
+	private bool isMovable;
 
 	public GameObject creatingObject;
 	public GameObject selectedObject;
@@ -27,36 +28,48 @@ public class ManagementPanel : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		Debug.Log (this.selectedObject);
 		handleInput ();
 
 	}
 
 	void handleInput () {
-		Debug.Log (this.selectedObject);
 		if (isCreating) {
 			setSelectedObjectPosition (getWorldPoint());
 			if (Input.GetMouseButtonDown (0)) {
 				// Check if mouse isn't over a UI Element
 				if(!EventSystem.current.IsPointerOverGameObject()) {
 					this.isCreating = false;
-					selectedObject = null;
+					selectObject (null);
 				}
 			}
 		} else {
 			if (Input.GetMouseButtonDown (0)) {
 				if (!isSelecting) {
+					isMovable = false;
 					handleSelection ();
+				} else {
+
+					//click the same object
+					if (getPointerObject () == this.selectedObject) {
+						this.isMovable = true;
+
+					//click other object
+					} else {
+						this.isMovable = false;
+						handleSelection ();
+					}
 				}
 
 			} else if ( Input.GetMouseButton(1)) {
 				if (isSelecting) {
 					isSelecting = false;
+					isMovable = false;
+					dehighlightObject ();
 					selectedObject = null;
 				}
 			} else if ( Input.GetMouseButton(0)) {
-				Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
-				RaycastHit hit;
-				if (isSelecting && getPointerObject() == this.selectedObject) {
+				if (isSelecting && isMovable) {
 					setSelectedObjectPosition (getWorldPoint());
 				}
 			}
@@ -91,12 +104,30 @@ public class ManagementPanel : MonoBehaviour {
 		createObject ();
 	}
 
+	public void selectObject(GameObject obj) {
+		if(this.selectedObject) {
+			dehighlightObject ();
+		}
+		this.selectedObject = obj;
+		highlightObject();
+	}
+
 	private void createObject(){
-		selectedObject = Instantiate (creatingObject, getWorldPoint(), Quaternion.identity) as GameObject;
+		selectObject(Instantiate (creatingObject, getWorldPoint(), Quaternion.identity) as GameObject);
 	}
 	private void setSelectedObjectPosition(Vector3 pos){
 		selectedObject.transform.position = pos;
 	}
+
+	private void highlightObject() {
+		this.selectedObject.GetComponent<Renderer>().material.shader = silhouette;
+		this.selectedObject.GetComponent<Renderer>().material.SetColor ("_OutlineColor", Color.green);
+	}
+
+	private void dehighlightObject() {
+		this.selectedObject.GetComponent<Renderer>().material.shader = Shader.Find ("Diffuse");
+	}
+
 	public void changeObjectRotation(int axis , int angle){
 		switch(axis){
 		case x:
@@ -163,8 +194,9 @@ public class ManagementPanel : MonoBehaviour {
 				selectBird (hit);
 				this.isSelecting = true;
 			} else if (hit.transform.tag == "ManagementObject") {
-				selectedObject = hit.transform.gameObject;
+				selectObject(hit.transform.gameObject);
 				this.isSelecting = true;
+				highlightObject ();
 			} else {
 				//other
 			}
