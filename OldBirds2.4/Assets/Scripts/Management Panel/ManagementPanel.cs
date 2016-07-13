@@ -86,6 +86,7 @@ public class ManagementPanel : MonoBehaviour {
 			}
 		}
 		this.isCreating = true;
+		this.isSelecting = false;
 		this.creatingObject = creatingGameObject;
 		createObject ();
 	}
