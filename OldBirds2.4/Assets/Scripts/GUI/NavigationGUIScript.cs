@@ -46,11 +46,11 @@ public class NavigationGUIScript : MonoBehaviour {
 			if (GUI.Button (new Rect (140, 130, 120, 20), "Scale Down")) {
 				managementScript.changeObjectScale (1);
 			}
-			if (GUI.Button (new Rect (20, 150, 120, 20), "Rotate Left")) {
-				managementScript.changeObjectRotation (1, 45);
+			if (GUI.RepeatButton (new Rect (20, 150, 120, 20), "Rotate Left")) {
+				managementScript.changeObjectRotation (1, 1);
 			}
-			if (GUI.Button(new Rect (140, 150, 120, 20), "Rotate Right")) {
-				managementScript.changeObjectRotation (1, -45);
+			if (GUI.RepeatButton(new Rect (140, 150, 120, 20), "Rotate Right")) {
+				managementScript.changeObjectRotation (1, -1);
 			}
 		}
 	}

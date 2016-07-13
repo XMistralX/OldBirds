@@ -92,10 +92,18 @@ public class ManagementPanel : MonoBehaviour {
 	public void changeObjectScale(int choice){
 		switch (choice) {
 		case scaleUp:
-			selectedObject.transform.localScale *= 2;
+			selectedObject.transform.localScale = new Vector3(
+				selectedObject.transform.localScale.x + 1 ,
+				selectedObject.transform.localScale.y + 1 ,
+				selectedObject.transform.localScale.z + 1 
+			);
 			break;
 		case scaleDown:
-			selectedObject.transform.localScale /= 2;
+			selectedObject.transform.localScale = new Vector3(
+				selectedObject.transform.localScale.x - 1 ,
+				selectedObject.transform.localScale.y - 1 ,
+				selectedObject.transform.localScale.z - 1 
+			);
 			break;
 		}
 
