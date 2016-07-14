@@ -28,7 +28,7 @@ public class ManagementPanel : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		Debug.Log (this.selectedObject);
+		//Debug.Log (this.selectedObject);
 		handleInput ();
 
 	}
@@ -120,15 +120,17 @@ public class ManagementPanel : MonoBehaviour {
 	}
 
 	private void highlightObject() {
-		this.selectedObject.GetComponent<Renderer>().material.shader = silhouette;
-		this.selectedObject.GetComponent<Renderer>().material.SetColor ("_OutlineColor", Color.green);
+		if(selectedObject != null){
+			this.selectedObject.GetComponent<Renderer>().material.shader = silhouette;
+			this.selectedObject.GetComponent<Renderer>().material.SetColor ("_OutlineColor", Color.green);
+		}
 	}
 
 	private void dehighlightObject() {
 		this.selectedObject.GetComponent<Renderer>().material.shader = Shader.Find ("Diffuse");
 	}
 
-	public void changeObjectRotation(int axis , int angle){
+	public void incrementObjectRotation(int axis , int angle){
 		switch(axis){
 		case x:
 			selectedObject.transform.eulerAngles = new Vector3 (
@@ -155,21 +157,56 @@ public class ManagementPanel : MonoBehaviour {
 			break;
 		}
 	}
+	public void setObjectRotation(int axis , int newAngle){
+		switch(axis){
+		case x:
+			selectedObject.transform.eulerAngles = new Vector3 (
+				newAngle,
+				selectedObject.transform.eulerAngles.y,
+				selectedObject.transform.eulerAngles.z
+			);
+			break;
+		case y:
+			selectedObject.transform.eulerAngles = new Vector3 (
+				selectedObject.transform.eulerAngles.x,
+				newAngle,
+				selectedObject.transform.eulerAngles.z
+			);
+			break;
+		case z:
+			selectedObject.transform.eulerAngles = new Vector3 (
+				selectedObject.transform.eulerAngles.x,
+				selectedObject.transform.eulerAngles.y,
+				newAngle
+			);
+			break;
+		default:
+			break;
+		}
+	}
+	public Vector3 getObjectRotation(){
+		if(selectedObject != null){
+			return selectedObject.transform.eulerAngles;
+		}
+		return Vector3.zero;
+	}
 	public void changeObjectScale(int choice){
 		switch (choice) {
 		case scaleUp:
 			selectedObject.transform.localScale = new Vector3(
 				selectedObject.transform.localScale.x + 1 ,
-				selectedObject.transform.localScale.y + 1 ,
-				selectedObject.transform.localScale.z + 1 
+				selectedObject.transform.localScale.y + 1,
+				selectedObject.transform.localScale.z + 1
 			);
 			break;
 		case scaleDown:
-			selectedObject.transform.localScale = new Vector3(
-				selectedObject.transform.localScale.x - 1 ,
-				selectedObject.transform.localScale.y - 1 ,
-				selectedObject.transform.localScale.z - 1 
-			);
+			if (selectedObject.transform.localScale.x > 1) {
+				selectedObject.transform.localScale = new Vector3 (
+					selectedObject.transform.localScale.x - 1,
+					selectedObject.transform.localScale.y - 1,
+					selectedObject.transform.localScale.z - 1 
+				);
+			}
 			break;
 		}
 

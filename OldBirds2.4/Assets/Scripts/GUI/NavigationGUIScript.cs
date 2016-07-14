@@ -8,6 +8,10 @@ public class NavigationGUIScript : MonoBehaviour {
 	private bool hide = false;
 	private GameObject holder;
 	private ManagementPanel managementScript;
+	private string currentObjectRotation;
+	private string xRotation = "";
+	private string yRotation = "0";
+	private string zRotation = "0";
 	void Start() {
 		holder = GameObject.Find("Eye");
 		managementScript = holder.GetComponent<ManagementPanel> ();
@@ -19,6 +23,11 @@ public class NavigationGUIScript : MonoBehaviour {
 			else
 				hide = false;
 		}
+		if (managementScript.selectedObject != null) {
+			currentObjectRotation = managementScript.getObjectRotation ().ToString ();
+		}
+
+
 	}
 
 	void OnGUI () {
@@ -40,17 +49,22 @@ public class NavigationGUIScript : MonoBehaviour {
 					Application.LoadLevel(Application.loadedLevel + 1);
 				}
 			}
-			if (GUI.Button (new Rect (20, 130, 120, 20), "Scale Up")) {
+			if (GUI.RepeatButton (new Rect (20, 130, 120, 20), "Scale Up")) {
 				managementScript.changeObjectScale (0);
 			}
-			if (GUI.Button (new Rect (140, 130, 120, 20), "Scale Down")) {
+			if (GUI.RepeatButton (new Rect (140, 130, 120, 20), "Scale Down")) {
 				managementScript.changeObjectScale (1);
 			}
 			if (GUI.RepeatButton (new Rect (20, 150, 120, 20), "Rotate Left")) {
-				managementScript.changeObjectRotation (1, 1);
+				managementScript.incrementObjectRotation (1, 1);
 			}
 			if (GUI.RepeatButton(new Rect (140, 150, 120, 20), "Rotate Right")) {
-				managementScript.changeObjectRotation (1, -1);
+				managementScript.incrementObjectRotation (1, -1);
+			}
+			GUI.Label (new Rect(260 , 150 , 120 ,20), currentObjectRotation);
+			xRotation = GUI.TextArea (new Rect(20,180,40 , 20),xRotation);
+			if (GUI.Button (new Rect (60, 180, 120, 20), "ChangeXRotation")) {
+				managementScript.setObjectRotation (0, int.Parse (xRotation));
 			}
 		}
 	}
