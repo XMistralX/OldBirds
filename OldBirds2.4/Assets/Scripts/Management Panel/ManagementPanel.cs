@@ -37,28 +37,22 @@ public class ManagementPanel : MonoBehaviour {
 		if (isCreating) {
 			setSelectedObjectPosition (getWorldPoint());
 			if (Input.GetMouseButtonDown (0)) {
-				// Check if mouse isn't over a UI Element
+				//if mouse isn't over a UI Element
 				if(!EventSystem.current.IsPointerOverGameObject()) {
 					this.isCreating = false;
 					selectObject (null);
 				}
 			}
+
 		} else {
 			if (Input.GetMouseButtonDown (0)) {
-				if (!isSelecting) {
-					isMovable = false;
-					handleSelection ();
+				// start moveable if click on the same object
+				if (isSelecting && getPointerObject () == this.selectedObject) {
+					this.isMovable = true;
+					// select other object
 				} else {
-
-					//click the same object
-					if (getPointerObject () == this.selectedObject) {
-						this.isMovable = true;
-
-					//click other object
-					} else {
-						this.isMovable = false;
-						handleSelection ();
-					}
+					this.isMovable = false;
+					handleSelection ();
 				}
 
 			} else if ( Input.GetMouseButton(1)) {
@@ -73,8 +67,6 @@ public class ManagementPanel : MonoBehaviour {
 					setSelectedObjectPosition (getWorldPoint());
 				}
 			}
-			else if (Input.GetMouseButtonUp(0)) {
-			}
 		}
 	}
 
@@ -88,7 +80,8 @@ public class ManagementPanel : MonoBehaviour {
 	}
 
 	public void changeCreatingObject(GameObject creatingGameObject) {
-		//toggle on/off
+
+		// if already in creating state, destroy the previously creating one.
 		if (this.isCreating) {
 			Destroy (this.selectedObject);
 
@@ -101,7 +94,7 @@ public class ManagementPanel : MonoBehaviour {
 		this.isCreating = true;
 		this.isSelecting = false;
 		this.creatingObject = creatingGameObject;
-		createObject ();
+		selectObject(createObject());
 	}
 
 	public void selectObject(GameObject obj) {
@@ -112,23 +105,50 @@ public class ManagementPanel : MonoBehaviour {
 		highlightObject();
 	}
 
-	private void createObject(){
-		selectObject(Instantiate (creatingObject, getWorldPoint(), Quaternion.identity) as GameObject);
+	private GameObject createObject(){
+		return Instantiate (creatingObject, getWorldPoint(), Quaternion.identity) as GameObject;
 	}
 	private void setSelectedObjectPosition(Vector3 pos){
 		selectedObject.transform.position = pos;
 	}
 
 	private void highlightObject() {
-		if(selectedObject != null){
-			this.selectedObject.GetComponent<Renderer>().material.shader = silhouette;
-			this.selectedObject.GetComponent<Renderer>().material.SetColor ("_OutlineColor", Color.green);
+		if (this.selectedObject) {
+			if (this.selectedObject.GetComponent<Renderer> ()) {
+				this.selectedObject.GetComponent<Renderer> ().material.shader = silhouette;
+				this.selectedObject.GetComponent<Renderer> ().material.SetColor ("_OutlineColor", Color.green);
+			} else {
+				foreach (Transform child in this.selectedObject.transform) {
+					Debug.Log ("HEREX");
+					if (child.GetComponent<Renderer> ()) {
+						child.GetComponent<Renderer> ().material.shader = silhouette;
+						child.GetComponent<Renderer> ().material.SetColor ("_OutlineColor", Color.green);
+					}
+				}
+			}
 		}
 	}
 
 	private void dehighlightObject() {
-		this.selectedObject.GetComponent<Renderer>().material.shader = Shader.Find ("Diffuse");
+		if (this.selectedObject) {
+			if (this.selectedObject.GetComponent<Renderer> ()) {
+				this.selectedObject.GetComponent<Renderer> ().material.shader = Shader.Find ("Diffuse");
+			}
+			else {
+				foreach (Transform child in this.selectedObject.transform) {
+					if (child.GetComponent<Renderer> ()) {
+						child.GetComponent<Renderer>().material.shader = Shader.Find ("Diffuse");
+					}
+				}
+			}
+		} 
 	}
+
+	public GameObject getSelectedObject() {
+		return this.selectedObject;
+	}
+
+
 
 	public void incrementObjectRotation(int axis , int angle){
 		switch(axis){
@@ -309,7 +329,4 @@ public class ManagementPanel : MonoBehaviour {
 		}
 	}
 
-	public GameObject getSelectedObject() {
-		return this.selectedObject;
-	}
 }
