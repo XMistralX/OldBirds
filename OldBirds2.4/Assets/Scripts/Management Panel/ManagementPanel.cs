@@ -28,6 +28,7 @@ public class ManagementPanel : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		Debug.Log (getPointerObject());
 		//Debug.Log (this.selectedObject);
 		handleInput ();
 
@@ -122,7 +123,10 @@ public class ManagementPanel : MonoBehaviour {
 		return Instantiate (creatingObject, getWorldPoint(), Quaternion.identity) as GameObject;
 	}
 	private void setSelectedObjectPosition(Vector3 pos){
-		selectedObject.transform.position = pos;
+
+		//float yOffset = this.selectedObject.transform.position.y - this.selectedObject.GetComponent<Collider> ().bounds.min.y;
+		float yOffset = this.selectedObject.transform.position.y - getBounds(this.selectedObject).min.y;
+		selectedObject.transform.position = new Vector3(pos.x, pos.y+=yOffset, pos.z);
 	}
 
 	private void highlightObject() {
@@ -132,7 +136,6 @@ public class ManagementPanel : MonoBehaviour {
 				this.selectedObject.GetComponent<Renderer> ().material.SetColor ("_OutlineColor", Color.green);
 			} else {
 				foreach (Transform child in this.selectedObject.transform) {
-					Debug.Log ("HEREX");
 					if (child.GetComponent<Renderer> ()) {
 						child.GetComponent<Renderer> ().material.shader = silhouette;
 						child.GetComponent<Renderer> ().material.SetColor ("_OutlineColor", Color.green);
@@ -272,6 +275,33 @@ public class ManagementPanel : MonoBehaviour {
 			}
 
 		}
+	}
+
+	public Bounds getBounds(GameObject obj){
+		Bounds bounds;
+		Renderer childRender;
+		bounds = getRenderBounds(obj);
+		if(bounds.extents.x == 0){
+			bounds = new Bounds(obj.transform.position,Vector3.zero);
+			foreach (Transform child in obj.transform) {
+				childRender = child.GetComponent<Renderer>();
+				if (childRender) {
+					bounds.Encapsulate(childRender.bounds);
+				}else{
+					bounds.Encapsulate(getBounds(child.gameObject));
+				}
+			}
+		}
+		return bounds;
+	}
+
+	public	Bounds getRenderBounds(GameObject obj){
+		Bounds bounds = new  Bounds(Vector3.zero,Vector3.zero);
+		Renderer render = obj.GetComponent<Renderer>();
+		if(render!=null){
+			return render.bounds;
+		}
+		return bounds;
 	}
 		
 	void selectBird(RaycastHit hit) {
