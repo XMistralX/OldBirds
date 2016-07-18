@@ -23,9 +23,6 @@ public class NavigationGUIScript : MonoBehaviour {
 			else
 				hide = false;
 		}
-		if (managementScript.selectedObject != null) {
-			currentObjectRotation = managementScript.getObjectRotation ().ToString ();
-		}
 
 
 	}
