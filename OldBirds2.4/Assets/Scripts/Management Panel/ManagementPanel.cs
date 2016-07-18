@@ -66,7 +66,9 @@ public class ManagementPanel : MonoBehaviour {
 				}
 			} else if ( Input.GetMouseButton(0)) {
 				if (isSelecting && isMovable) {
+					
 					setSelectedObjectPosition (getWorldPointIgnoreObject(this.selectedObject));
+					print (getObjectLocation());
 				}
 			}
 		}
@@ -93,6 +95,9 @@ public class ManagementPanel : MonoBehaviour {
 		return Vector3.zero;
 	}
 
+	public Vector3 getObjectLocation(){
+		return selectedObject.transform.position;
+	}
 	public void changeCreatingObject(GameObject creatingGameObject) {
 
 		// if already in creating state, destroy the previously creating one.

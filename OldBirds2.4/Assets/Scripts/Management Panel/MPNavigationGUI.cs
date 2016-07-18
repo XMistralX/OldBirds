@@ -9,6 +9,7 @@ public class MPNavigationGUI : MonoBehaviour {
 	private GameObject holder;
 	private ManagementPanel managementScript;
 	private string currentObjectRotation;
+	private string currentObjectLocation;
 	private string xRotation = "";
 	private string yRotation = "0";
 	private string zRotation = "0";
@@ -17,6 +18,8 @@ public class MPNavigationGUI : MonoBehaviour {
 		managementScript = holder.GetComponent<ManagementPanel> ();
 	}
 	void Update() {
+		if(managementScript.selectedObject != null)
+			currentObjectLocation = managementScript.getObjectLocation ().ToString();
 		if(Input.GetKeyDown(KeyCode.H)) {
 			if(!hide)
 				hide = true;
@@ -63,6 +66,7 @@ public class MPNavigationGUI : MonoBehaviour {
 			if (GUI.Button (new Rect (60, 180, 120, 20), "ChangeXRotation")) {
 				managementScript.setObjectRotation (0, int.Parse (xRotation));
 			}
+			GUI.Label (new Rect(60 , 200 , 120 ,20), currentObjectLocation);
 		}
 	}
 
