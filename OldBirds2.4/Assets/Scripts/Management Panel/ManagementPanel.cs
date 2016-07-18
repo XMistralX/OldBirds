@@ -35,7 +35,7 @@ public class ManagementPanel : MonoBehaviour {
 
 	void handleInput () {
 		if (isCreating) {
-			setSelectedObjectPosition (getWorldPoint());
+			setSelectedObjectPosition (getWorldPointIgnoreObject(this.selectedObject));
 			if (Input.GetMouseButtonDown (0)) {
 				//if mouse isn't over a UI Element
 				if(!EventSystem.current.IsPointerOverGameObject()) {
@@ -49,7 +49,8 @@ public class ManagementPanel : MonoBehaviour {
 				// start moveable if click on the same object
 				if (isSelecting && getPointerObject () == this.selectedObject) {
 					this.isMovable = true;
-					// select other object
+
+				// select other object
 				} else {
 					this.isMovable = false;
 					handleSelection ();
@@ -64,10 +65,22 @@ public class ManagementPanel : MonoBehaviour {
 				}
 			} else if ( Input.GetMouseButton(0)) {
 				if (isSelecting && isMovable) {
-					setSelectedObjectPosition (getWorldPoint());
+					setSelectedObjectPosition (getWorldPointIgnoreObject(this.selectedObject));
 				}
 			}
 		}
+	}
+
+	private Vector3 getWorldPointIgnoreObject(GameObject obj){
+		obj.transform.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+		Ray ray = GetComponent<Camera>().ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit;
+		if(Physics.Raycast(ray, out hit)){
+			obj.transform.gameObject.layer = LayerMask.NameToLayer("Default");
+			return hit.point;
+		}
+		obj.transform.gameObject.layer = LayerMask.NameToLayer("Default");
+		return Vector3.zero;
 	}
 
 	private Vector3 getWorldPoint(){
