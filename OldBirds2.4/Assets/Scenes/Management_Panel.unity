@@ -1020,7 +1020,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0.3826835, z: 0, w: 0.92387956}
   m_LocalPosition: {x: -27.736486, y: 0.26903152, z: -38.745773}
   m_LocalScale: {x: 20, y: 7, z: 0.49999994}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
   m_Children: []
   m_Father: {fileID: 503844925}
   m_RootOrder: 22
@@ -3476,7 +3476,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Sphere
+  m_Text: 'Table
 
 '
 --- !u!222 &434082779
@@ -6920,9 +6920,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Cube
-
-'
+  m_Text: Chair
 --- !u!222 &778511000
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8503,7 +8501,7 @@ GameObject:
   - 114: {fileID: 932170587}
   - 114: {fileID: 932170586}
   m_Layer: 5
-  m_Name: Cube
+  m_Name: Chair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8571,7 +8569,7 @@ MonoBehaviour:
         m_MethodName: changeCreatingObject
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 142376, guid: 1a2d84c1c68304855abe893a2d5d84d9,
+          m_ObjectArgument: {fileID: 114522, guid: 11eda8d7bc3ef3543bde5f8f81a0aa6b,
             type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
@@ -10092,7 +10090,7 @@ GameObject:
   - 114: {fileID: 1197806550}
   - 114: {fileID: 1197806549}
   m_Layer: 5
-  m_Name: Sphere
+  m_Name: Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10940,7 +10938,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 38.254498, y: -24.8741, z: 165.6066}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1 &1283552266
 GameObject:
   m_ObjectHideFlags: 0

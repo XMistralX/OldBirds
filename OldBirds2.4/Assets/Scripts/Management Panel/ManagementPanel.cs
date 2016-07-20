@@ -68,7 +68,6 @@ public class ManagementPanel : MonoBehaviour {
 				if (isSelecting && isMovable) {
 					
 					setSelectedObjectPosition (getWorldPointIgnoreObject(this.selectedObject));
-					print (getObjectLocation());
 				}
 			}
 		}
