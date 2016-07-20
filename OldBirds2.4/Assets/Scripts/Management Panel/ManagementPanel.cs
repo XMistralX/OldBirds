@@ -28,7 +28,7 @@ public class ManagementPanel : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		Debug.Log (getPointerObject());
+		//Debug.Log (getPointerObject());
 		//Debug.Log (this.selectedObject);
 		handleInput ();
 
@@ -126,6 +126,9 @@ public class ManagementPanel : MonoBehaviour {
 
 	private GameObject createObject(){
 		return Instantiate (creatingObject, getWorldPoint(), Quaternion.identity) as GameObject;
+	}
+	public void deleteObject(){
+		Destroy (selectedObject);
 	}
 	private void setSelectedObjectPosition(Vector3 pos){
 

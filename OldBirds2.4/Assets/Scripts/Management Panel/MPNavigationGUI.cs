@@ -10,9 +10,8 @@ public class MPNavigationGUI : MonoBehaviour {
 	private ManagementPanel managementScript;
 	private string currentObjectRotation;
 	private string currentObjectLocation;
-	private string xRotation = "";
-	private string yRotation = "0";
-	private string zRotation = "0";
+	private string Rotation = "";
+
 	void Start() {
 		holder = GameObject.Find("Eye");
 		managementScript = holder.GetComponent<ManagementPanel> ();
@@ -20,6 +19,8 @@ public class MPNavigationGUI : MonoBehaviour {
 	void Update() {
 		if(managementScript.selectedObject != null)
 			currentObjectLocation = managementScript.getObjectLocation ().ToString();
+		if (managementScript.selectedObject != null) 
+			currentObjectRotation = managementScript.getObjectRotation ().ToString ();
 		if(Input.GetKeyDown(KeyCode.H)) {
 			if(!hide)
 				hide = true;
@@ -62,11 +63,14 @@ public class MPNavigationGUI : MonoBehaviour {
 				managementScript.incrementObjectRotation (1, -1);
 			}
 			GUI.Label (new Rect(260 , 150 , 120 ,20), currentObjectRotation);
-			xRotation = GUI.TextArea (new Rect(20,180,40 , 20),xRotation);
-			if (GUI.Button (new Rect (60, 180, 120, 20), "ChangeXRotation")) {
-				managementScript.setObjectRotation (0, int.Parse (xRotation));
+			Rotation = GUI.TextArea (new Rect(20,180,40 , 20),Rotation);
+			if (GUI.Button (new Rect (60, 180, 120, 20), "ChangeYRotation")) {
+				managementScript.setObjectRotation (1, int.Parse (Rotation));
 			}
 			GUI.Label (new Rect(60 , 200 , 120 ,20), currentObjectLocation);
+			if (GUI.Button (new Rect (60, 220, 120, 20), "Destroy Object")) {
+				managementScript.deleteObject();
+			}
 		}
 	}
 
