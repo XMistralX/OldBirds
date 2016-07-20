@@ -29,7 +29,7 @@ public class ManagementPanel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//Debug.Log (getPointerObject());
-		//Debug.Log (this.selectedObject);
+		Debug.Log (this.selectedObject + " " + this.isMovable);
 		handleInput ();
 
 	}
@@ -61,8 +61,8 @@ public class ManagementPanel : MonoBehaviour {
 				if (isSelecting) {
 					isSelecting = false;
 					isMovable = false;
-					dehighlightObject ();
-					selectedObject = null;
+					setIgnoreGroupedObject (this.selectedObject, false);
+					selectObject (null);
 				}
 			} else if ( Input.GetMouseButton(0)) {
 				if (isSelecting && isMovable) {
@@ -74,14 +74,14 @@ public class ManagementPanel : MonoBehaviour {
 	}
 
 	private Vector3 getWorldPointIgnoreObject(GameObject obj){
-		obj.transform.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+		setIgnoreGroupedObject (this.selectedObject, true);
 		Ray ray = GetComponent<Camera>().ScreenPointToRay (Input.mousePosition);
 		RaycastHit hit;
 		if(Physics.Raycast(ray, out hit)){
-			obj.transform.gameObject.layer = LayerMask.NameToLayer("Default");
+			setIgnoreGroupedObject (this.selectedObject, false);
 			return hit.point;
 		}
-		obj.transform.gameObject.layer = LayerMask.NameToLayer("Default");
+		setIgnoreGroupedObject (this.selectedObject, false);
 		return Vector3.zero;
 	}
 
@@ -92,6 +92,21 @@ public class ManagementPanel : MonoBehaviour {
 			return hit.point;
 		}
 		return Vector3.zero;
+	}
+
+	private void setIgnoreGroupedObject(GameObject groupedObject, bool isIgnore) {
+		if (isIgnore == true) {
+			groupedObject.layer = LayerMask.NameToLayer ("Ignore Raycast");
+			foreach (Transform child in groupedObject.transform) {
+				child.gameObject.layer = LayerMask.NameToLayer ("Ignore Raycast");
+			}
+		} else {
+			groupedObject.layer = LayerMask.NameToLayer ("Default");
+			foreach (Transform child in groupedObject.transform) {
+				child.gameObject.layer = LayerMask.NameToLayer ("Default");
+			}
+
+		}
 	}
 
 	public Vector3 getObjectLocation(){
