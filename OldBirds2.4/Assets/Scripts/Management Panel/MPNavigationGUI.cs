@@ -39,7 +39,13 @@ public class MPNavigationGUI : MonoBehaviour {
 
 
 	}
-
+	bool IsDigitOnly(string str){
+		foreach (char c in str) {
+			if (c < '0' || c > '9')
+				return false;
+		}
+		return true;
+	}
 	void OnGUI () {
 		if(!hide) {
 			// Background
@@ -72,10 +78,13 @@ public class MPNavigationGUI : MonoBehaviour {
 				managementScript.incrementObjectRotation (1, -1);
 			}
 			GUI.Label (new Rect(260 , 150 , 120 ,20), currentObjectRotation);
+			GUI.SetNextControlName ("Rotate Field");
 			Rotation = GUI.TextArea (new Rect(20,180,40 , 20),Rotation);
 			if (GUI.Button (new Rect (60, 180, 120, 20), "ChangeYRotation")) {
-				if(Rotation != "")
+				if (Rotation != "" && IsDigitOnly(Rotation)) {
+					
 					managementScript.setObjectRotation (1, int.Parse (Rotation));
+				}
 			}
 			GUI.Label (new Rect(60 , 200 , 120 ,20), currentObjectLocation);
 			if (GUI.Button (new Rect (60, 220, 120, 20), "Delete Object")) {
@@ -83,6 +92,9 @@ public class MPNavigationGUI : MonoBehaviour {
 			}
 			if (birdInfo) {
 				GUI.TextField(new Rect (birdLocation.x + 50, birdLocation.y,100,50),"Hello World!");
+			}
+			if(Event.current.keyCode == KeyCode.Return && GUI.GetNameOfFocusedControl().Equals("Rotate Field")){
+				managementScript.setObjectRotation (1, int.Parse (Rotation));
 			}
 		}
 	}
