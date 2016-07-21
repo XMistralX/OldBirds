@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
-
+using UnityEditor;
 public class ManagementPanel : MonoBehaviour {
 
 	public Shader silhouette;
@@ -12,7 +12,6 @@ public class ManagementPanel : MonoBehaviour {
 	private bool isSelecting;
 	private bool isMovable;
 
-	public GameObject creatingObject;
 	public GameObject selectedObject;
 
 	private const int x = 0;
@@ -28,7 +27,6 @@ public class ManagementPanel : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		Debug.Log (getPointerObject());
 		//Debug.Log (this.selectedObject + " " + this.isMovable);
 		handleInput ();
 		isOverBird ();
@@ -41,8 +39,7 @@ public class ManagementPanel : MonoBehaviour {
 			if (Input.GetMouseButtonDown (0)) {
 				//if mouse isn't over a UI Element
 				if(!EventSystem.current.IsPointerOverGameObject()) {
-					this.isCreating = false;
-					selectObject (null);
+					setCreatingState (false);
 				}
 			}
 
@@ -67,10 +64,19 @@ public class ManagementPanel : MonoBehaviour {
 				}
 			} else if ( Input.GetMouseButton(0)) {
 				if (isSelecting && isMovable) {
-					
 					setSelectedObjectPosition (getWorldPointIgnoreObject(this.selectedObject));
 				}
 			}
+		}
+	}
+
+	private void setCreatingState(bool isCreating) {
+		if (isCreating == true) {
+			this.isCreating = true;
+			this.isSelecting = false;
+		} else {
+			this.isCreating = false;
+			selectObject (null);
 		}
 	}
 
@@ -117,18 +123,16 @@ public class ManagementPanel : MonoBehaviour {
 
 		// if already in creating state, destroy the previously creating one.
 		if (this.isCreating) {
-			Destroy (this.selectedObject);
-
-			if(this.creatingObject == creatingGameObject){
-				this.isCreating = false;
-				this.creatingObject = null;
+			if(this.selectedObject.name == string.Format("{0}(Clone)", creatingGameObject.name) ){
+				Destroy (this.selectedObject);
+				setCreatingState (false);
 				return;
 			}
+			Destroy (this.selectedObject);
+
 		}
-		this.isCreating = true;
-		this.isSelecting = false;
-		this.creatingObject = creatingGameObject;
-		selectObject(createObject());
+		setCreatingState (true);
+		selectObject(createObject(creatingGameObject));
 	}
 
 	public void selectObject(GameObject obj) {
@@ -139,8 +143,8 @@ public class ManagementPanel : MonoBehaviour {
 		highlightObject();
 	}
 
-	private GameObject createObject(){
-		return Instantiate (creatingObject, getWorldPoint(), Quaternion.identity) as GameObject;
+	private GameObject createObject(GameObject obj){
+		return Instantiate (obj, getWorldPoint(), Quaternion.identity) as GameObject;
 	}
 	public void deleteObject(){
 		if (this.selectedObject) {
