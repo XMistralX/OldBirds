@@ -74,10 +74,11 @@ public class MPNavigationGUI : MonoBehaviour {
 			GUI.Label (new Rect(260 , 150 , 120 ,20), currentObjectRotation);
 			Rotation = GUI.TextArea (new Rect(20,180,40 , 20),Rotation);
 			if (GUI.Button (new Rect (60, 180, 120, 20), "ChangeYRotation")) {
-				managementScript.setObjectRotation (1, int.Parse (Rotation));
+				if(Rotation != "")
+					managementScript.setObjectRotation (1, int.Parse (Rotation));
 			}
 			GUI.Label (new Rect(60 , 200 , 120 ,20), currentObjectLocation);
-			if (GUI.Button (new Rect (60, 220, 120, 20), "Destroy Object")) {
+			if (GUI.Button (new Rect (60, 220, 120, 20), "Delete Object")) {
 				managementScript.deleteObject();
 			}
 			if (birdInfo) {

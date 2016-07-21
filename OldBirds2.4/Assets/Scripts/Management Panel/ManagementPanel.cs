@@ -143,7 +143,9 @@ public class ManagementPanel : MonoBehaviour {
 		return Instantiate (creatingObject, getWorldPoint(), Quaternion.identity) as GameObject;
 	}
 	public void deleteObject(){
-		Destroy (selectedObject);
+		if (this.selectedObject) {
+			Destroy (selectedObject);
+		}
 	}
 	private void setSelectedObjectPosition(Vector3 pos){
 
@@ -189,57 +191,61 @@ public class ManagementPanel : MonoBehaviour {
 
 
 	public void incrementObjectRotation(int axis , int angle){
-		switch(axis){
-		case x:
-			selectedObject.transform.eulerAngles = new Vector3 (
-				selectedObject.transform.eulerAngles.x + angle,
-				selectedObject.transform.eulerAngles.y,
-				selectedObject.transform.eulerAngles.z
-			);
-			break;
-		case y:
-			selectedObject.transform.eulerAngles = new Vector3 (
-				selectedObject.transform.eulerAngles.x,
-				selectedObject.transform.eulerAngles.y  + angle,
-				selectedObject.transform.eulerAngles.z
-			);
-			break;
-		case z:
-			selectedObject.transform.eulerAngles = new Vector3 (
-				selectedObject.transform.eulerAngles.x,
-				selectedObject.transform.eulerAngles.y,
-				selectedObject.transform.eulerAngles.z   + angle
-			);
-			break;
-		default:
-			break;
+		if (this.selectedObject) {
+			switch (axis) {
+			case x:
+				selectedObject.transform.eulerAngles = new Vector3 (
+					selectedObject.transform.eulerAngles.x + angle,
+					selectedObject.transform.eulerAngles.y,
+					selectedObject.transform.eulerAngles.z
+				);
+				break;
+			case y:
+				selectedObject.transform.eulerAngles = new Vector3 (
+					selectedObject.transform.eulerAngles.x,
+					selectedObject.transform.eulerAngles.y + angle,
+					selectedObject.transform.eulerAngles.z
+				);
+				break;
+			case z:
+				selectedObject.transform.eulerAngles = new Vector3 (
+					selectedObject.transform.eulerAngles.x,
+					selectedObject.transform.eulerAngles.y,
+					selectedObject.transform.eulerAngles.z + angle
+				);
+				break;
+			default:
+				break;
+			}
 		}
 	}
 	public void setObjectRotation(int axis , int newAngle){
-		switch(axis){
-		case x:
-			selectedObject.transform.eulerAngles = new Vector3 (
-				newAngle,
-				selectedObject.transform.eulerAngles.y,
-				selectedObject.transform.eulerAngles.z
-			);
-			break;
-		case y:
-			selectedObject.transform.eulerAngles = new Vector3 (
-				selectedObject.transform.eulerAngles.x,
-				newAngle,
-				selectedObject.transform.eulerAngles.z
-			);
-			break;
-		case z:
-			selectedObject.transform.eulerAngles = new Vector3 (
-				selectedObject.transform.eulerAngles.x,
-				selectedObject.transform.eulerAngles.y,
-				newAngle
-			);
-			break;
-		default:
-			break;
+		if (this.selectedObject) {
+			switch (axis) {
+			case x:
+				selectedObject.transform.eulerAngles = new Vector3 (
+					newAngle,
+					selectedObject.transform.eulerAngles.y,
+					selectedObject.transform.eulerAngles.z
+				);
+				break;
+			case y:
+				selectedObject.transform.eulerAngles = new Vector3 (
+					selectedObject.transform.eulerAngles.x,
+					newAngle,
+					selectedObject.transform.eulerAngles.z
+				);
+				break;
+			case z:
+				selectedObject.transform.eulerAngles = new Vector3 (
+					selectedObject.transform.eulerAngles.x,
+					selectedObject.transform.eulerAngles.y,
+					newAngle
+				);
+				break;
+			default:
+				break;
+			}
 		}
 	}
 	public Vector3 getObjectRotation(){
@@ -249,25 +255,26 @@ public class ManagementPanel : MonoBehaviour {
 		return Vector3.zero;
 	}
 	public void changeObjectScale(int choice){
-		switch (choice) {
-		case scaleUp:
-			selectedObject.transform.localScale = new Vector3(
-				selectedObject.transform.localScale.x + 1 ,
-				selectedObject.transform.localScale.y + 1,
-				selectedObject.transform.localScale.z + 1
-			);
-			break;
-		case scaleDown:
-			if (selectedObject.transform.localScale.x > 1) {
+		if (this.selectedObject) {
+			switch (choice) {
+			case scaleUp:
 				selectedObject.transform.localScale = new Vector3 (
-					selectedObject.transform.localScale.x - 1,
-					selectedObject.transform.localScale.y - 1,
-					selectedObject.transform.localScale.z - 1 
+					selectedObject.transform.localScale.x + 1,
+					selectedObject.transform.localScale.y + 1,
+					selectedObject.transform.localScale.z + 1
 				);
+				break;
+			case scaleDown:
+				if (selectedObject.transform.localScale.x > 1) {
+					selectedObject.transform.localScale = new Vector3 (
+						selectedObject.transform.localScale.x - 1,
+						selectedObject.transform.localScale.y - 1,
+						selectedObject.transform.localScale.z - 1 
+					);
+				}
+				break;
 			}
-			break;
 		}
-
 	}
 
 	private GameObject getPointerObject() {
