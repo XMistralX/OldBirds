@@ -28,9 +28,10 @@ public class ManagementPanel : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//Debug.Log (getPointerObject());
-		Debug.Log (this.selectedObject + " " + this.isMovable);
+		Debug.Log (getPointerObject());
+		//Debug.Log (this.selectedObject + " " + this.isMovable);
 		handleInput ();
+		isOverBird ();
 
 	}
 
@@ -187,7 +188,6 @@ public class ManagementPanel : MonoBehaviour {
 	}
 
 
-
 	public void incrementObjectRotation(int axis , int angle){
 		switch(axis){
 		case x:
@@ -278,7 +278,17 @@ public class ManagementPanel : MonoBehaviour {
 		}
 		return null;
 	}
-
+	public Vector3 isOverBird(){
+		Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
+		RaycastHit hit;
+		Vector3 birdLocation;
+		if (Physics.Raycast (ray, out hit, 2000)) {
+			if (hit.transform.tag == "Bird") {
+				return Camera.main.WorldToScreenPoint(hit.transform.position);
+			}
+		}
+		return Vector3.zero;
+	}
 	private void handleSelection() {
 		Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 		RaycastHit hit;
@@ -288,6 +298,7 @@ public class ManagementPanel : MonoBehaviour {
 			if (hit.transform.tag == "Bird") {
 				selectBird (hit);
 				this.isSelecting = true;
+
 			} else if (hit.transform.tag == "ManagementObject") {
 				selectObject(hit.transform.gameObject);
 				this.isSelecting = true;

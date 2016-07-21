@@ -11,6 +11,8 @@ public class MPNavigationGUI : MonoBehaviour {
 	private string currentObjectRotation;
 	private string currentObjectLocation;
 	private string Rotation = "";
+	private bool birdInfo = false;
+	private Vector3 birdLocation;
 
 	void Start() {
 		holder = GameObject.Find("Eye");
@@ -26,6 +28,13 @@ public class MPNavigationGUI : MonoBehaviour {
 				hide = true;
 			else
 				hide = false;
+		}
+		if (managementScript.isOverBird () != Vector3.zero) {
+			birdInfo = true;
+			birdLocation = managementScript.isOverBird ();
+		} else {
+
+			birdInfo = false;
 		}
 
 
@@ -70,6 +79,9 @@ public class MPNavigationGUI : MonoBehaviour {
 			GUI.Label (new Rect(60 , 200 , 120 ,20), currentObjectLocation);
 			if (GUI.Button (new Rect (60, 220, 120, 20), "Destroy Object")) {
 				managementScript.deleteObject();
+			}
+			if (birdInfo) {
+				GUI.TextField(new Rect (birdLocation.x + 50, birdLocation.y,100,50),"Hello World!");
 			}
 		}
 	}
