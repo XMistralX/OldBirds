@@ -56,7 +56,6 @@ public class ManagementPanel : MonoBehaviour {
 
 			} else if ( Input.GetMouseButton(1)) {
 				if (isSelecting) {
-					isSelecting = false;
 					isMovable = false;
 					setIgnoreGroupedObject (this.selectedObject, false);
 					selectObject (null);
@@ -142,6 +141,13 @@ public class ManagementPanel : MonoBehaviour {
 			dehighlightObject (this.selectedObject);
 		}
 		this.selectedObject = obj;
+		if (!obj) {
+			this.isSelecting = false;
+			return;
+		}
+		if (!this.isCreating) {
+			this.isSelecting = true;
+		}
 		highlightObject(this.selectedObject);
 	}
 
@@ -305,11 +311,9 @@ public class ManagementPanel : MonoBehaviour {
 			// Accept only transforms tagged with "Bird"
 			if (hit.transform.tag == "Bird") {
 				selectBird (hit);
-				this.isSelecting = true;
 
 			} else if (hit.transform.tag == "ManagementObject") {
 				selectObject(hit.transform.gameObject);
-				this.isSelecting = true;
 			} else {
 				//other
 			}
