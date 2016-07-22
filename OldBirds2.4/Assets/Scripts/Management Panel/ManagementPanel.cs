@@ -18,8 +18,9 @@ public class ManagementPanel : MonoBehaviour {
 	private const int y = 1;
 	private const int z = 2;
 
-	private const int scaleUp = 0;
-	private const int scaleDown = 1;
+	private const int scaleUp = 1;
+	private const int scaleReset = 0;
+	private const int scaleDown = -1;
 	// Use this for initialization
 	void Start () {
 		selectedBirds = new ArrayList();
@@ -277,6 +278,9 @@ public class ManagementPanel : MonoBehaviour {
 						selectedObject.transform.localScale.z + 0.025f
 					);
 				}
+				break;
+			case scaleReset:
+				selectedObject.transform.localScale = new Vector3 (1f, 1f, 1f);
 				break;
 			case scaleDown:
 				if (selectedObject.transform.localScale.x > 0.5f) {

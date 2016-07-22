@@ -76,10 +76,13 @@ public class MPNavigationGUI : MonoBehaviour {
 			}
 
 			if (GUI.RepeatButton (new Rect (20, 130, 120, 20), "Scale Up")) {
-				managementScript.changeObjectScale (0);
+				managementScript.changeObjectScale (1);
 			}
 			if (GUI.RepeatButton (new Rect (140, 130, 120, 20), "Scale Down")) {
-				managementScript.changeObjectScale (1);
+				managementScript.changeObjectScale (-1);
+			}
+			if (GUI.RepeatButton (new Rect (260, 130, 120, 20), "Scale Reset")) {
+				managementScript.changeObjectScale (0);
 			}
 			if (GUI.RepeatButton (new Rect (20, 150, 120, 20), "Rotate Left")) {
 				managementScript.incrementObjectRotation (1, 1);
