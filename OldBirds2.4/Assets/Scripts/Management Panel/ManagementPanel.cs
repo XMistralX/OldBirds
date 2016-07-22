@@ -101,6 +101,9 @@ public class ManagementPanel : MonoBehaviour {
 	}
 
 	private void setIgnoreGroupedObject(GameObject groupedObject, bool isIgnore) {
+		if (!groupedObject) {
+			return;
+		}
 		if (isIgnore == true) {
 			groupedObject.layer = LayerMask.NameToLayer ("Ignore Raycast");
 			foreach (Transform child in groupedObject.transform) {
@@ -154,7 +157,7 @@ public class ManagementPanel : MonoBehaviour {
 
 		//float yOffset = this.selectedObject.transform.position.y - this.selectedObject.GetComponent<Collider> ().bounds.min.y;
 		float yOffset = this.selectedObject.transform.position.y - getBounds(this.selectedObject).min.y;
-		selectedObject.transform.position = new Vector3(pos.x, pos.y+=yOffset, pos.z);
+		selectedObject.transform.position = new Vector3(pos.x, pos.y+yOffset, pos.z);
 	}
 
 	private void highlightObject(GameObject selectedObject) {
