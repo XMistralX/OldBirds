@@ -136,10 +136,10 @@ public class ManagementPanel : MonoBehaviour {
 
 	public void selectObject(GameObject obj) {
 		if(this.selectedObject) {
-			dehighlightObject ();
+			dehighlightObject (this.selectedObject);
 		}
 		this.selectedObject = obj;
-		highlightObject();
+		highlightObject(this.selectedObject);
 	}
 
 	private GameObject createObject(GameObject obj){
@@ -157,13 +157,13 @@ public class ManagementPanel : MonoBehaviour {
 		selectedObject.transform.position = new Vector3(pos.x, pos.y+=yOffset, pos.z);
 	}
 
-	private void highlightObject() {
-		if (this.selectedObject) {
-			if (this.selectedObject.GetComponent<Renderer> ()) {
-				this.selectedObject.GetComponent<Renderer> ().material.shader = silhouette;
-				this.selectedObject.GetComponent<Renderer> ().material.SetColor ("_OutlineColor", Color.green);
+	private void highlightObject(GameObject selectedObject) {
+		if (selectedObject) {
+			if (selectedObject.GetComponent<Renderer> ()) {
+				selectedObject.GetComponent<Renderer> ().material.shader = silhouette;
+				selectedObject.GetComponent<Renderer> ().material.SetColor ("_OutlineColor", Color.green);
 			} else {
-				foreach (Transform child in this.selectedObject.transform) {
+				foreach (Transform child in selectedObject.transform) {
 					if (child.GetComponent<Renderer> ()) {
 						child.GetComponent<Renderer> ().material.shader = silhouette;
 						child.GetComponent<Renderer> ().material.SetColor ("_OutlineColor", Color.green);
@@ -173,13 +173,13 @@ public class ManagementPanel : MonoBehaviour {
 		}
 	}
 
-	private void dehighlightObject() {
-		if (this.selectedObject) {
-			if (this.selectedObject.GetComponent<Renderer> ()) {
-				this.selectedObject.GetComponent<Renderer> ().material.shader = Shader.Find ("Diffuse");
+	private void dehighlightObject(GameObject selectedObject) {
+		if (selectedObject) {
+			if (selectedObject.GetComponent<Renderer> ()) {
+				selectedObject.GetComponent<Renderer> ().material.shader = Shader.Find ("Diffuse");
 			}
 			else {
-				foreach (Transform child in this.selectedObject.transform) {
+				foreach (Transform child in selectedObject.transform) {
 					if (child.GetComponent<Renderer> ()) {
 						child.GetComponent<Renderer>().material.shader = Shader.Find ("Diffuse");
 					}
@@ -305,7 +305,6 @@ public class ManagementPanel : MonoBehaviour {
 			} else if (hit.transform.tag == "ManagementObject") {
 				selectObject(hit.transform.gameObject);
 				this.isSelecting = true;
-				highlightObject ();
 			} else {
 				//other
 			}
