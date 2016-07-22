@@ -8565,7 +8565,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1016984159}
+      - m_Target: {fileID: 1277486094}
         m_MethodName: changeCreatingObject
         m_Mode: 2
         m_Arguments:
@@ -9000,13 +9000,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1016984152}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b6eea7e7461c4b1a9a503850a20110a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   silhouette: {fileID: 4800000, guid: 23bb8ed74da845649a453b6f65d9b257, type: 3}
-  creatingObject: {fileID: 142376, guid: 1a2d84c1c68304855abe893a2d5d84d9, type: 2}
   selectedObject: {fileID: 0}
 --- !u!1 &1042451197
 GameObject:
@@ -10154,7 +10153,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1016984159}
+      - m_Target: {fileID: 1277486094}
         m_MethodName: changeCreatingObject
         m_Mode: 2
         m_Arguments:
@@ -10826,6 +10825,7 @@ GameObject:
   - 4: {fileID: 1277486092}
   - 114: {fileID: 1277486091}
   - 114: {fileID: 1277486093}
+  - 114: {fileID: 1277486094}
   m_Layer: 0
   m_Name: MainController
   m_TagString: Untagged
@@ -10871,12 +10871,25 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1277486090}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7283f545805149849bae59312e4287a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   silhouette: {fileID: 4800000, guid: 23bb8ed74da845649a453b6f65d9b257, type: 3}
+--- !u!114 &1277486094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1277486090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b6eea7e7461c4b1a9a503850a20110a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  silhouette: {fileID: 4800000, guid: 23bb8ed74da845649a453b6f65d9b257, type: 3}
+  selectedObject: {fileID: 0}
 --- !u!1 &1277881123
 GameObject:
   m_ObjectHideFlags: 0
