@@ -81,7 +81,7 @@ public class ManagementPanel : MonoBehaviour {
 
 	private Vector3 getWorldPointIgnoreObject(GameObject obj){
 		setIgnoreGroupedObject (this.selectedObject, true);
-		Ray ray = GetComponent<Camera>().ScreenPointToRay (Input.mousePosition);
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		RaycastHit hit;
 		if(Physics.Raycast(ray, out hit)){
 			setIgnoreGroupedObject (this.selectedObject, false);
@@ -92,7 +92,7 @@ public class ManagementPanel : MonoBehaviour {
 	}
 
 	private Vector3 getWorldPoint(){
-		Ray ray = GetComponent<Camera>().ScreenPointToRay (Input.mousePosition);
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		RaycastHit hit;
 		if(Physics.Raycast(ray, out hit)){
 			return hit.point;
@@ -264,18 +264,20 @@ public class ManagementPanel : MonoBehaviour {
 		if (this.selectedObject) {
 			switch (choice) {
 			case scaleUp:
-				selectedObject.transform.localScale = new Vector3 (
-					selectedObject.transform.localScale.x + 1,
-					selectedObject.transform.localScale.y + 1,
-					selectedObject.transform.localScale.z + 1
-				);
+				if (selectedObject.transform.localScale.x <= 10f) {
+					selectedObject.transform.localScale = new Vector3 (
+						selectedObject.transform.localScale.x + 0.025f,
+						selectedObject.transform.localScale.y + 0.025f,
+						selectedObject.transform.localScale.z + 0.025f
+					);
+				}
 				break;
 			case scaleDown:
-				if (selectedObject.transform.localScale.x > 1) {
+				if (selectedObject.transform.localScale.x > 0.5f) {
 					selectedObject.transform.localScale = new Vector3 (
-						selectedObject.transform.localScale.x - 1,
-						selectedObject.transform.localScale.y - 1,
-						selectedObject.transform.localScale.z - 1 
+						selectedObject.transform.localScale.x - 0.025f,
+						selectedObject.transform.localScale.y - 0.025f,
+						selectedObject.transform.localScale.z - 0.025f 
 					);
 				}
 				break;

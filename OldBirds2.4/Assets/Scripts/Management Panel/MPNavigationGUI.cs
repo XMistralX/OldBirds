@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 /// <summary>
 /// Navigation GUI script for user to navigate through scenes manually.
@@ -15,7 +16,7 @@ public class MPNavigationGUI : MonoBehaviour {
 	private Vector3 birdLocation;
 
 	void Start() {
-		holder = GameObject.Find("Eye");
+		holder = GameObject.Find("MainController");
 		managementScript = holder.GetComponent<ManagementPanel> ();
 	}
 	void Update() {
@@ -73,6 +74,7 @@ public class MPNavigationGUI : MonoBehaviour {
 					Application.LoadLevel(Application.loadedLevel + 1);
 				}
 			}
+
 			if (GUI.RepeatButton (new Rect (20, 130, 120, 20), "Scale Up")) {
 				managementScript.changeObjectScale (0);
 			}
