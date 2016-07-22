@@ -29,13 +29,21 @@ public class MPNavigationGUI : MonoBehaviour {
 			else
 				hide = false;
 		}
-		if (managementScript.isOverBird () != Vector3.zero) {
+		if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag == "Bird") {
 			birdInfo = true;
-			birdLocation = managementScript.isOverBird ();
+			Vector3 cache = managementScript.getPointerObject ().transform.position;
+			birdLocation = managementScript.convertToScreenPoint (cache);
 		} else {
-
 			birdInfo = false;
 		}
+			
+//		if (managementScript.isOverBird () != Vector3.zero) {
+//			birdInfo = true;
+//			birdLocation = managementScript.isOverBird ();
+//		} else {
+//
+//			birdInfo = false;
+//		}
 
 
 	}

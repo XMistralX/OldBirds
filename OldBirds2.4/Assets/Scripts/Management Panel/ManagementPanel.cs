@@ -29,7 +29,6 @@ public class ManagementPanel : MonoBehaviour {
 	void Update () {
 		//Debug.Log (this.selectedObject + " " + this.isMovable);
 		handleInput ();
-		isOverBird ();
 
 	}
 
@@ -281,7 +280,7 @@ public class ManagementPanel : MonoBehaviour {
 		}
 	}
 
-	private GameObject getPointerObject() {
+	public GameObject getPointerObject() {
 		Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 		RaycastHit hit;
 		if (Physics.Raycast (ray, out hit, 2000)) {
@@ -289,17 +288,10 @@ public class ManagementPanel : MonoBehaviour {
 		}
 		return null;
 	}
-	public Vector3 isOverBird(){
-		Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
-		RaycastHit hit;
-		Vector3 birdLocation;
-		if (Physics.Raycast (ray, out hit, 2000)) {
-			if (hit.transform.tag == "Bird") {
-				return Camera.main.WorldToScreenPoint(hit.transform.position);
-			}
-		}
-		return Vector3.zero;
+	public Vector3 convertToScreenPoint(Vector3 worldPoint){
+		return Camera.main.WorldToScreenPoint(worldPoint);
 	}
+
 	private void handleSelection() {
 		Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 		RaycastHit hit;
