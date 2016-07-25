@@ -1,0 +1,192 @@
+fileFormatVersion: 2
+guid: 6b465cd0a25a0be429399d493ec3d63d
+timeCreated: 1469442553
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Body
+    100004: Cone01
+    100006: Cylinder01
+    100008: Cylinder02
+    100010: eyeblack_L
+    100012: eyeblack_R
+    100014: eyebrow_L
+    100016: eyebrow_R
+    100018: eyelid_L
+    100020: eyelid_R
+    100022: eyewhite_L
+    100024: eyewhite_R
+    100026: Frame
+    100028: Glassess
+    100030: Hair
+    100032: Hair001
+    100034: HandLeft
+    100036: HandRight
+    100038: Lens_
+    100040: mouth_1
+    100042: mouth_2
+    100044: mouth_3
+    100046: mouth_4
+    100048: Tail
+    400000: //RootNode
+    400002: Body
+    400004: Cone01
+    400006: Cylinder01
+    400008: Cylinder02
+    400010: eyeblack_L
+    400012: eyeblack_R
+    400014: eyebrow_L
+    400016: eyebrow_R
+    400018: eyelid_L
+    400020: eyelid_R
+    400022: eyewhite_L
+    400024: eyewhite_R
+    400026: Frame
+    400028: Glassess
+    400030: Hair
+    400032: Hair001
+    400034: HandLeft
+    400036: HandRight
+    400038: Lens_
+    400040: mouth_1
+    400042: mouth_2
+    400044: mouth_3
+    400046: mouth_4
+    400048: Tail
+    2300000: Body
+    2300002: Cone01
+    2300004: Cylinder01
+    2300006: Cylinder02
+    2300008: eyeblack_L
+    2300010: eyeblack_R
+    2300012: eyebrow_L
+    2300014: eyebrow_R
+    2300016: eyelid_L
+    2300018: eyelid_R
+    2300020: eyewhite_L
+    2300022: eyewhite_R
+    2300024: Frame
+    2300026: Hair
+    2300028: Hair001
+    2300030: HandLeft
+    2300032: HandRight
+    2300034: Lens_
+    2300036: mouth_1
+    2300038: mouth_2
+    2300040: mouth_3
+    2300042: mouth_4
+    2300044: Tail
+    3300000: Body
+    3300002: Cone01
+    3300004: Cylinder01
+    3300006: Cylinder02
+    3300008: eyeblack_L
+    3300010: eyeblack_R
+    3300012: eyebrow_L
+    3300014: eyebrow_R
+    3300016: eyelid_L
+    3300018: eyelid_R
+    3300020: eyewhite_L
+    3300022: eyewhite_R
+    3300024: Frame
+    3300026: Hair
+    3300028: Hair001
+    3300030: HandLeft
+    3300032: HandRight
+    3300034: Lens_
+    3300036: mouth_1
+    3300038: mouth_2
+    3300040: mouth_3
+    3300042: mouth_4
+    3300044: Tail
+    4300000: Body
+    4300002: Cone01
+    4300004: Cylinder01
+    4300006: Cylinder02
+    4300008: eyeblack_L
+    4300010: eyeblack_R
+    4300012: eyebrow_L
+    4300014: eyebrow_R
+    4300016: eyelid_L
+    4300018: eyewhite_L
+    4300020: eyelid_R
+    4300022: eyewhite_R
+    4300024: Frame
+    4300026: Lens_
+    4300028: Hair
+    4300030: Hair001
+    4300032: HandLeft
+    4300034: HandRight
+    4300036: mouth_1
+    4300038: mouth_2
+    4300040: mouth_3
+    4300042: mouth_4
+    4300044: Tail
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,205 @@
+fileFormatVersion: 2
+guid: 6bae1ea02dfedf3478687a3a46780ce4
+timeCreated: 1469442553
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: beard 1
+    100002: beard 2
+    100004: beard down
+    100006: BlindBird
+    100008: //RootNode
+    100010: body
+    100012: Cane
+    100014: Cone01
+    100016: Cylinder01
+    100018: Cylinder02
+    100020: eyeblack 1
+    100022: eyeblack 2
+    100024: eyebrow 1
+    100026: eyebrow 2
+    100028: eyelid 1
+    100030: eyelid 2
+    100032: eyewhite 1
+    100034: eyewhite 2
+    100036: Frame
+    100038: Glass
+    100040: hair
+    100042: HandLeft
+    100044: HandRight
+    100046: Lens_
+    100048: mouth 1
+    100050: mouth 2
+    100052: mouth 3
+    100054: mouth 4
+    100056: tail
+    400000: beard 1
+    400002: beard 2
+    400004: beard down
+    400006: BlindBird
+    400008: //RootNode
+    400010: body
+    400012: Cane
+    400014: Cone01
+    400016: Cylinder01
+    400018: Cylinder02
+    400020: eyeblack 1
+    400022: eyeblack 2
+    400024: eyebrow 1
+    400026: eyebrow 2
+    400028: eyelid 1
+    400030: eyelid 2
+    400032: eyewhite 1
+    400034: eyewhite 2
+    400036: Frame
+    400038: Glass
+    400040: hair
+    400042: HandLeft
+    400044: HandRight
+    400046: Lens_
+    400048: mouth 1
+    400050: mouth 2
+    400052: mouth 3
+    400054: mouth 4
+    400056: tail
+    2300000: beard 1
+    2300002: beard 2
+    2300004: beard down
+    2300006: body
+    2300008: Cone01
+    2300010: Cylinder01
+    2300012: Cylinder02
+    2300014: eyeblack 1
+    2300016: eyeblack 2
+    2300018: eyebrow 1
+    2300020: eyebrow 2
+    2300022: eyelid 1
+    2300024: eyelid 2
+    2300026: eyewhite 1
+    2300028: eyewhite 2
+    2300030: Frame
+    2300032: hair
+    2300034: HandLeft
+    2300036: HandRight
+    2300038: Lens_
+    2300040: mouth 1
+    2300042: mouth 2
+    2300044: mouth 3
+    2300046: mouth 4
+    2300048: tail
+    3300000: beard 1
+    3300002: beard 2
+    3300004: beard down
+    3300006: body
+    3300008: Cone01
+    3300010: Cylinder01
+    3300012: Cylinder02
+    3300014: eyeblack 1
+    3300016: eyeblack 2
+    3300018: eyebrow 1
+    3300020: eyebrow 2
+    3300022: eyelid 1
+    3300024: eyelid 2
+    3300026: eyewhite 1
+    3300028: eyewhite 2
+    3300030: Frame
+    3300032: hair
+    3300034: HandLeft
+    3300036: HandRight
+    3300038: Lens_
+    3300040: mouth 1
+    3300042: mouth 2
+    3300044: mouth 3
+    3300046: mouth 4
+    3300048: tail
+    4300000: eyebrow 2
+    4300002: eyewhite 2
+    4300004: mouth 4
+    4300006: mouth 3
+    4300008: tail
+    4300010: mouth 2
+    4300012: mouth 1
+    4300014: beard 2
+    4300016: beard 1
+    4300018: beard down
+    4300020: hair
+    4300022: body
+    4300024: eyelid 1
+    4300026: eyebrow 1
+    4300028: eyelid 2
+    4300030: eyewhite 1
+    4300032: eyeblack 2
+    4300034: eyeblack 1
+    4300036: Frame
+    4300038: Lens_
+    4300040: Cone01
+    4300042: Cylinder01
+    4300044: Cylinder02
+    4300046: HandLeft
+    4300048: HandRight
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
