@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\Gizmo\SimpleBox.cs" />
      <Compile Include="Assets\Scripts\Management Panel\MPNavigationGUI.cs" />
      <Compile Include="Assets\Scripts\Management Panel\ManagementPanel.cs" />
+     <Compile Include="Assets\Scripts\Management Panel\UIControl.cs" />
      <Compile Include="Assets\Scripts\Misc\AlphaFlashingScript.cs" />
      <Compile Include="Assets\Scripts\Misc\SelectionTool.cs" />
      <Compile Include="Assets\Scripts\Movement\ChangeSceneTrigger.cs" />

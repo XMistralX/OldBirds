@@ -4,17 +4,17 @@ using System.Collections;
 
 public class UIControl : MonoBehaviour {
 
-	private GameObject holder;
+	private Text holder;
 	private GameObject birds;
 	// Use this for initialization
 	void Start () {
-		holder = GameObject.Find("Text");
+		holder = gameObject.GetComponent<Text>();
 
 	}
 
 	// Update is called once per frame
 	void Update () {
-		holder.GetComponent<RectTransform> ().anchoredPosition3D = Input.mousePosition;
+		holder.rectTransform.anchoredPosition3D = Input.mousePosition;
 		print (Input.mousePosition);
 	}
 }
