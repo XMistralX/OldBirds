@@ -103,9 +103,9 @@ public class MPNavigationGUI : MonoBehaviour {
 			if (GUI.Button (new Rect (60, 220, 120, 20), "Delete Object")) {
 				managementScript.deleteObject();
 			}
-			if (birdInfo) {
-				GUI.TextField(new Rect (birdLocation.x + 50, birdLocation.y,100,50),"Hello World!");
-			}
+//			if (birdInfo) {
+//				GUI.TextField(new Rect (birdLocation.x + 50, birdLocation.y,100,50),"Hello World!");
+//			}
 			if(Event.current.keyCode == KeyCode.Return && GUI.GetNameOfFocusedControl().Equals("Rotate Field")){
 				managementScript.setObjectRotation (1, int.Parse (Rotation));
 			}
