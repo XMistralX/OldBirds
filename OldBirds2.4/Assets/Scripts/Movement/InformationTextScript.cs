@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class InformationTextScript : MonoBehaviour {
@@ -40,6 +41,12 @@ public class InformationTextScript : MonoBehaviour {
 			infoText.text = sInfoText;
 			informationWindowInstance.gameObject.SetActive(false);
 		}
+
+		Dictionary<string, string> info = new Dictionary<string, string> ();
+		info.Add ("Name", birdName);
+		info.Add ("Status", birdStatus);
+
+
 		
 	}
 	

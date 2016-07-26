@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\GUI\NavigationGUIScript.cs" />
      <Compile Include="Assets\Scripts\Gizmo\DrawArrow.cs" />
      <Compile Include="Assets\Scripts\Gizmo\SimpleBox.cs" />
+     <Compile Include="Assets\Scripts\Management Panel\InformationUIScript.cs" />
      <Compile Include="Assets\Scripts\Management Panel\MPNavigationGUI.cs" />
      <Compile Include="Assets\Scripts\Management Panel\ManagementPanel.cs" />
      <Compile Include="Assets\Scripts\Management Panel\UIControl.cs" />
