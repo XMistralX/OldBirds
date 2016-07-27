@@ -119,7 +119,10 @@ public class ManagementPanel : MonoBehaviour {
 	}
 
 	public Vector3 getObjectLocation(){
-		return selectedObject.transform.position;
+		if(this.selectedObject){
+			return selectedObject.transform.position;
+		}
+		return Vector3.zero;
 	}
 	public void changeCreatingObject(GameObject creatingGameObject) {
 
@@ -262,7 +265,7 @@ public class ManagementPanel : MonoBehaviour {
 		}
 	}
 	public Vector3 getObjectRotation(){
-		if(selectedObject != null){
+		if(this.selectedObject){
 			return selectedObject.transform.eulerAngles;
 		}
 		return Vector3.zero;
@@ -294,7 +297,12 @@ public class ManagementPanel : MonoBehaviour {
 			}
 		}
 	}
-
+	public Vector3 getObjectScale(){
+		if(this.selectedObject){
+			return selectedObject.transform.localScale;
+		}
+		return Vector3.zero;
+	}
 	public GameObject getPointerObject() {
 		Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 		RaycastHit hit;
