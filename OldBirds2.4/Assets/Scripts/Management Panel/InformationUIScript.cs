@@ -85,12 +85,22 @@ public class InformationUIScript : MonoBehaviour {
 		return parent.transform.FindChild ("Value").GetComponent<InputField>().text;
 	}
 	private void mouseOverBird(){
-		if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag == "Bird" && this.enabled == false) {
-			show ();
-		} else if (managementScript.getPointerObject () == null && this.enabled == true) {
-			show ();
-		} else if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag != "Bird" && this.enabled == true) {
-			show ();
+		if (managementScript.getSelectionList ().Count <= 0) {
+			if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag == "Bird" && this.enabled == false) {
+				show ();
+				setAddButtonActive(false);
+			} else if (managementScript.getPointerObject () == null && this.enabled == true) {
+				hide ();
+			} else if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag != "Bird" && this.enabled == true) {
+				hide ();
+			}
+		} else {
+			foreach (GameObject bird in managementScript.getSelectionList()) {
+				if (bird == this.gameObject) {
+					show ();
+					setAddButtonActive(true);
+				}
+			}
 		}
 	}
 
@@ -150,6 +160,7 @@ public class InformationUIScript : MonoBehaviour {
 		}
 		Transform addButton = this.informationWindowInstance.FindChild ("Add");
 		addButton.GetComponent<Button> ().onClick.AddListener( () => showAddNewKeyValuePanel() );
+		addButton.gameObject.SetActive (false);
 
 
 		updateInfo ();
@@ -173,6 +184,12 @@ public class InformationUIScript : MonoBehaviour {
 		addButton.GetComponent<Button> ().onClick.AddListener( () => addNewKeyValue(keyField.GetComponent<InputField> ().text, valueField.GetComponent<InputField> ().text) );
 	}
 
+	private void setAddButtonActive(bool isActive) {
+		if(this.informationWindowInstance) {
+			this.informationWindowInstance.FindChild ("Add").gameObject.SetActive(isActive);
+		}
+	}
+
 	public void updateInfo() {
 		foreach (string key in this.infoUIMap.Keys) {
 			changeValueInKey (key, getValueTextFromParentTransform(this.infoUIMap[key]));
@@ -182,12 +199,24 @@ public class InformationUIScript : MonoBehaviour {
 	}
 
 	public void show() {
+		if(!enabled) {
+			this.enabled = true;
+			enableWindow();
+		}
+	}
+
+	public void hide() {
 		if(enabled) {
 			this.enabled = false;
 			disableWindow();
+		}
+	}
+
+	public void toggle() {
+		if(enabled) {
+			hide();
 		} else {
-			this.enabled = true;
-			enableWindow();
+			show();
 		}
 
 	}
@@ -201,13 +230,20 @@ public class InformationUIScript : MonoBehaviour {
 
 	void enableWindow ()
 	{
-		if(informationWindowInstance)
-			informationWindowInstance.gameObject.SetActive(true);
+		if(informationWindowInstance) {
+			destroyPanel();
+			initPanel();
+			renderUI();
+		}
+		else {
+			initPanel();
+			renderUI();
+		}
 	}
 
 	void disableWindow ()
 	{
 		if (informationWindowInstance)
-			informationWindowInstance.gameObject.SetActive (false);
+			destroyPanel();
 	}
 }

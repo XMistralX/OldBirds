@@ -46,7 +46,7 @@ public class ManagementPanel : MonoBehaviour {
 		} else {
 			if (Input.GetMouseButtonDown (0)) {
 				// start moveable if click on the same object
-				if (isSelecting && getPointerObject () == this.selectedObject) {
+				if (isSelecting && getPointerObject () == this.selectedObject && !EventSystem.current.IsPointerOverGameObject()) {
 					this.isMovable = true;
 
 				// select other object
