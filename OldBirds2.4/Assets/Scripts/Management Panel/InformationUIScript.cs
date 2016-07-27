@@ -36,7 +36,7 @@ public class InformationUIScript : MonoBehaviour {
 	private bool enabled = true;
 
 	void Update() {
-		//updateInfo ();
+		updateInfo ();
 		mouseOverBird ();
 	}
 
