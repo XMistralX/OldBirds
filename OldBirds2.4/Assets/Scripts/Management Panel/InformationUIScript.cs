@@ -15,6 +15,8 @@ public class InformationUIScript : MonoBehaviour {
 	public RectTransform informationWindowObject;
 	public Canvas UICanvas;
 
+	public RectTransform addNewKeyValuePanel;
+
 	public GameObject KeyValue;
 
 	public Dictionary<string, string> infoMap;
@@ -29,26 +31,24 @@ public class InformationUIScript : MonoBehaviour {
 	private GameObject holder;
 	private ManagementPanel managementScript;
 
+	private Transform addNewKeyValuePanelInstance;
+
 	private bool enabled = true;
 
 	void Update() {
-		updateInfo ();
+		//updateInfo ();
 		mouseOverBird ();
 	}
 
 	void Start () {	
 		if (informationWindowObject) {
-			informationWindowInstance = Instantiate(informationWindowObject);
-			informationWindowObject.transform.name = string.Format ("InformationPanel");
-			informationWindowInstance.SetParent(GameObject.Find("Canvas").transform);
-			informationWindowInstance.GetComponent<RectTransform>().localPosition = new Vector3 (0f, 0f, 0f);
-
+			initPanel ();
 
 			this.infoMap = new Dictionary<string, string> ();
 			this.infoUIMap = new Dictionary<string, GameObject> ();
 			this.infoMap.Add ("Name", birdName);
 			this.infoMap.Add ("Status", birdStatus);
-			this.infoMap.Add ("NextEvent", nextEvent);
+			this.infoMap.Add ("Next Event", nextEvent);
 			holder = GameObject.Find("MainController");
 			managementScript = holder.GetComponent<ManagementPanel> ();
 			renderUI ();
@@ -62,7 +62,11 @@ public class InformationUIScript : MonoBehaviour {
 	}
 
 	public void addNewKeyValue(string key, string value) {
+		Debug.Log ("added <"+ key + ", " + value + ">");
 		this.infoMap.Add (key, value);
+		destroyPanel ();
+		initPanel ();
+		renderUI ();
 	}
 
 	public void changeValueInKey(string key, string value) {
@@ -89,12 +93,38 @@ public class InformationUIScript : MonoBehaviour {
 			show ();
 		}
 	}
+
+	private void destroyPanel() {
+		if (this.infoUIMap.Keys.Count > 0) {
+			foreach (string key in this.infoMap.Keys) {
+				Destroy (this.infoUIMap[key].gameObject);
+			}
+			this.infoUIMap.Clear();
+		}
+		if (this.addNewKeyValuePanelInstance) {
+			Destroy (this.addNewKeyValuePanelInstance.gameObject);
+		}
+		if (this.informationWindowInstance) {
+			Destroy (this.informationWindowInstance.gameObject);
+		}
+	}
+
+	private void initPanel() {
+		if (informationWindowObject) {
+			informationWindowInstance = Instantiate (informationWindowObject);
+			informationWindowObject.transform.name = string.Format ("InformationPanel");
+			informationWindowInstance.SetParent (GameObject.Find ("Canvas").transform);
+			informationWindowInstance.GetComponent<RectTransform> ().localPosition = new Vector3 (0f, 0f, 0f);
+		}
+	}
+
+
 	private void renderUI() {
 		int counter = 0;
 
 		if (this.infoUIMap.Keys.Count > 0) {
 			foreach (string key in this.infoMap.Keys) {
-				Destroy (this.infoUIMap[key]);
+				Destroy (this.infoUIMap[key].gameObject);
 			}
 			this.infoUIMap.Clear();
 		}
@@ -118,7 +148,29 @@ public class InformationUIScript : MonoBehaviour {
 
 			counter++;
 		}
+		Transform addButton = this.informationWindowInstance.FindChild ("Add");
+		addButton.GetComponent<Button> ().onClick.AddListener( () => showAddNewKeyValuePanel() );
+
+
 		updateInfo ();
+	}
+
+	private void showAddNewKeyValuePanel() {
+		destroyPanel ();
+		this.addNewKeyValuePanelInstance = Instantiate (this.addNewKeyValuePanel) as Transform;
+		this.addNewKeyValuePanelInstance.SetParent (GameObject.Find ("Canvas").transform);
+		this.addNewKeyValuePanelInstance.GetComponent<RectTransform> ().offsetMax = new Vector2 (0f, 0f);
+		this.addNewKeyValuePanelInstance.GetComponent<RectTransform> ().offsetMin = new Vector2 (0f, 0f);
+
+		Transform addButton = this.addNewKeyValuePanelInstance.FindChild ("Add");
+		Transform cancelButton = this.addNewKeyValuePanelInstance.FindChild ("Cancel");
+		Transform keyField = this.addNewKeyValuePanelInstance.FindChild ("KeyField");
+		Transform valueField = this.addNewKeyValuePanelInstance.FindChild ("ValueField");
+
+
+		cancelButton.GetComponent<Button> ().onClick.AddListener( () => destroyPanel() );
+
+		addButton.GetComponent<Button> ().onClick.AddListener( () => addNewKeyValue(keyField.GetComponent<InputField> ().text, valueField.GetComponent<InputField> ().text) );
 	}
 
 	public void updateInfo() {
@@ -155,7 +207,7 @@ public class InformationUIScript : MonoBehaviour {
 
 	void disableWindow ()
 	{
-		if(informationWindowInstance)
-			informationWindowInstance.gameObject.SetActive(false);
+		if (informationWindowInstance)
+			informationWindowInstance.gameObject.SetActive (false);
 	}
 }
