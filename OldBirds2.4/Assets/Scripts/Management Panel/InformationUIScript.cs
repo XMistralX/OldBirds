@@ -26,10 +26,14 @@ public class InformationUIScript : MonoBehaviour {
 	private Text nextEventText;
 	private Text infoText;
 
-	private bool enabled = false;
+	private GameObject holder;
+	private ManagementPanel managementScript;
+
+	private bool enabled = true;
 
 	void Update() {
 		updateInfo ();
+		mouseOverBird ();
 	}
 
 	void Start () {	
@@ -45,7 +49,10 @@ public class InformationUIScript : MonoBehaviour {
 			this.infoMap.Add ("Name", birdName);
 			this.infoMap.Add ("Status", birdStatus);
 			this.infoMap.Add ("NextEvent", nextEvent);
+			holder = GameObject.Find("MainController");
+			managementScript = holder.GetComponent<ManagementPanel> ();
 			renderUI ();
+			show ();
 		}
 
 	}
@@ -73,7 +80,15 @@ public class InformationUIScript : MonoBehaviour {
 	public string getValueTextFromParentTransform(GameObject parent) {
 		return parent.transform.FindChild ("Value").GetComponent<InputField>().text;
 	}
-
+	private void mouseOverBird(){
+		if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag == "Bird" && this.enabled == false) {
+			show ();
+		} else if (managementScript.getPointerObject () == null && this.enabled == true) {
+			show ();
+		} else if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag != "Bird" && this.enabled == true) {
+			show ();
+		}
+	}
 	private void renderUI() {
 		int counter = 0;
 
