@@ -18,7 +18,7 @@ public class InformationUIScript : MonoBehaviour {
 	public GameObject KeyValue;
 
 	public Dictionary<string, string> infoMap;
-	public Dictionary<Transform, Transform> UIMap;
+	private Dictionary<string, GameObject> infoUIMap;
 
 	private RectTransform informationWindowInstance;
 	private Text nameText;
@@ -33,13 +33,20 @@ public class InformationUIScript : MonoBehaviour {
 	}
 
 	void Start () {	
+		if (informationWindowObject) {
+			informationWindowInstance = Instantiate(informationWindowObject);
+			informationWindowObject.transform.name = string.Format ("InformationPanel");
+			informationWindowInstance.SetParent(GameObject.Find("Canvas").transform);
+			informationWindowInstance.GetComponent<RectTransform>().localPosition = new Vector3 (0f, 0f, 0f);
 
-		this.infoMap = new Dictionary<string, string> ();
-		this.UIMap = new Dictionary<Transform, Transform> ();
-		this.infoMap.Add ("Name", birdName);
-		this.infoMap.Add ("Status", birdStatus);
-		this.infoMap.Add ("NextEvent", nextEvent);
-		renderUI ();
+
+			this.infoMap = new Dictionary<string, string> ();
+			this.infoUIMap = new Dictionary<string, GameObject> ();
+			this.infoMap.Add ("Name", birdName);
+			this.infoMap.Add ("Status", birdStatus);
+			this.infoMap.Add ("NextEvent", nextEvent);
+			renderUI ();
+		}
 
 	}
 
@@ -59,18 +66,37 @@ public class InformationUIScript : MonoBehaviour {
 		this.infoMap.Remove (key);
 	}
 
+	public string getKeyTextFromParentObject(GameObject parent) {
+		return parent.transform.FindChild ("Key").GetComponent<Text> ().text;
+	}
+
+	public string getValueTextFromParentTransform(GameObject parent) {
+		return parent.transform.FindChild ("Value").GetComponent<InputField>().text;
+	}
+
 	private void renderUI() {
 		int counter = 0;
+
+		if (this.infoUIMap.Keys.Count > 0) {
+			foreach (string key in this.infoMap.Keys) {
+				Destroy (this.infoUIMap[key]);
+			}
+			this.infoUIMap.Clear();
+		}
+
 		foreach (string key in this.infoMap.Keys) {
 			GameObject eachKeyValue = Instantiate (KeyValue, new Vector3(40f,40f,0f), Quaternion.identity) as GameObject;
-			eachKeyValue.transform.SetParent (GameObject.Find("InformationPanel").transform);
+			//eachKeyValue.transform.SetParent (GameObject.Find("InformationPanel").transform);
+			eachKeyValue.transform.SetParent (this.informationWindowInstance);
+
+			this.infoUIMap.Add (key, eachKeyValue);
+
 			Transform keyTransform = eachKeyValue.transform.FindChild ("Key");
 			keyTransform.GetComponent<Text> ().text = key;
 			eachKeyValue.transform.name = string.Format ("KeyValue ({0})",key);
 
 			Transform valueTransform = eachKeyValue.transform.FindChild ("Value");
 			valueTransform.GetComponent<InputField> ().text = this.infoMap[key];
-			UIMap.Add (keyTransform, valueTransform);
 
 			eachKeyValue.GetComponent<RectTransform>().anchoredPosition = new Vector3 (0f, 0f-(counter*90f), 0f);
 			eachKeyValue.transform.localScale = new Vector3 (3.5f,3.5f,3.5f);
@@ -81,10 +107,10 @@ public class InformationUIScript : MonoBehaviour {
 	}
 
 	public void updateInfo() {
-		foreach (Transform keyTransform in this.UIMap.Keys) {
-			changeValueInKey (keyTransform.GetComponent<Text>().text, this.UIMap[keyTransform].GetComponent<InputField>().text);
+		foreach (string key in this.infoUIMap.Keys) {
+			changeValueInKey (key, getValueTextFromParentTransform(this.infoUIMap[key]));
 			//this.UIMap [keyTransform].GetComponent<InputField> ().onEndEdit.AddListener ((value) => changeValueInKey(keyTransform.GetComponent<Text>().text, value));
-			Debug.Log (keyTransform.GetComponent<Text>().text + " " + this.UIMap[keyTransform].GetComponent<InputField>().text + " " + this.infoMap[keyTransform.GetComponent<Text>().text]);
+			//Debug.Log (key + "  " + this.infoMap[key] + "  " + getValueTextFromParentTransform(this.infoUIMap[key]));
 		}
 	}
 
