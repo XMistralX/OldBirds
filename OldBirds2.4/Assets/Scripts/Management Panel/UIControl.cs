@@ -23,6 +23,7 @@ public class UIControl : MonoBehaviour {
 	}
 	void checkBird(){
 		if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag == "Bird" && currentUIelement == null ) {
+			Vector3 birdLoc = Camera.main.WorldToScreenPoint (birdLocation);
 			Vector2 viewportPoint = Camera.main.WorldToViewportPoint (birdLocation);
 			if (viewportPoint.x < 0.6) {
 				viewportPoint = new Vector2 (
@@ -36,10 +37,11 @@ public class UIControl : MonoBehaviour {
 					viewportPoint.y - 0.2f
 				);
 			}
-			currentUIelement = Instantiate (UIElement, new Vector3(0f,0f,0f), Quaternion.identity) as GameObject;
+			currentUIelement = Instantiate (UIElement, birdLoc, Quaternion.identity) as GameObject;
 			//currentUIelement.AddComponent<RectTransform> ();
 			currentUIelement.transform.SetParent (GameObject.Find("Canvas").transform);
-
+			currentUIelement.GetComponent<RectTransform>().anchorMin = viewportPoint;
+			currentUIelement.GetComponent<RectTransform>().anchorMax = viewportPoint;
 		} else {}
 	}
 }
