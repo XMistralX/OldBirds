@@ -62,8 +62,8 @@ public class InformationUIScript : MonoBehaviour {
 	}
 
 	public void addNewKeyValue(string key, string value) {
-		Debug.Log ("added <"+ key + ", " + value + ">");
 		this.infoMap.Add (key, value);
+		Debug.Log ("added <"+ key + ", " + value + ">");
 		destroyPanel ();
 		initPanel ();
 		renderUI ();
@@ -75,6 +75,10 @@ public class InformationUIScript : MonoBehaviour {
 
 	public void removeKey(string key) {
 		this.infoMap.Remove (key);
+		Debug.Log ("removed <"+ key + ">");
+		destroyPanel ();
+		initPanel ();
+		renderUI ();
 	}
 
 	public string getKeyTextFromParentObject(GameObject parent) {
@@ -88,7 +92,7 @@ public class InformationUIScript : MonoBehaviour {
 		if (managementScript.getSelectionList ().Count <= 0) {
 			if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag == "Bird" && this.enabled == false) {
 				show ();
-				setAddButtonActive(false);
+				setModifiable(false);
 			} else if (managementScript.getPointerObject () == null && this.enabled == true) {
 				hide ();
 			} else if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag != "Bird" && this.enabled == true) {
@@ -98,14 +102,13 @@ public class InformationUIScript : MonoBehaviour {
 			foreach (GameObject bird in managementScript.getSelectionList()) {
 				if (bird == this.gameObject) {
 					show ();
-					setAddButtonActive(true);
+					setModifiable(true);
 				}
 			}
 		}
 	}
 
 	private void destroyPanel() {
-		Debug.Log ("CCCC");
 		if (this.infoUIMap.Keys.Count > 0) {
 			foreach (string key in this.infoMap.Keys) {
 				Destroy (this.infoUIMap[key].gameObject);
@@ -134,7 +137,7 @@ public class InformationUIScript : MonoBehaviour {
 		int counter = 0;
 
 		if (this.infoUIMap.Keys.Count > 0) {
-			foreach (string key in this.infoMap.Keys) {
+			foreach (string key in this.infoUIMap.Keys) {
 				Destroy (this.infoUIMap[key].gameObject);
 			}
 			this.infoUIMap.Clear();
@@ -156,6 +159,10 @@ public class InformationUIScript : MonoBehaviour {
 
 			eachKeyValue.GetComponent<RectTransform>().anchoredPosition = new Vector3 (0f, 0f-(counter*90f), 0f);
 			eachKeyValue.transform.localScale = new Vector3 (3.5f,3.5f,3.5f);
+
+			Transform destroyButton = eachKeyValue.transform.FindChild ("Destroy");
+			destroyButton.GetComponent<Button> ().onClick.AddListener( () => removeKey(keyTransform.GetComponent<Text> ().text) );
+			destroyButton.gameObject.SetActive (false);
 
 			counter++;
 		}
@@ -185,9 +192,22 @@ public class InformationUIScript : MonoBehaviour {
 		addButton.GetComponent<Button> ().onClick.AddListener( () => addNewKeyValue(keyField.GetComponent<InputField> ().text, valueField.GetComponent<InputField> ().text) );
 	}
 
+	private void setModifiable(bool isActive) {
+		setAddButtonActive (isActive);
+		setDestroyButtonActive (isActive);
+	}
+
 	private void setAddButtonActive(bool isActive) {
 		if(this.informationWindowInstance) {
 			this.informationWindowInstance.FindChild ("Add").gameObject.SetActive(isActive);
+		}
+	}
+
+	private void setDestroyButtonActive(bool isActive) {
+		if(this.informationWindowInstance) {
+			foreach (string key in this.infoUIMap.Keys) {
+				this.infoUIMap[key].transform.FindChild ("Destroy").gameObject.SetActive(isActive);
+			}
 		}
 	}
 
