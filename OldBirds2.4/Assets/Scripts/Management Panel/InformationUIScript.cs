@@ -105,6 +105,7 @@ public class InformationUIScript : MonoBehaviour {
 	}
 
 	private void destroyPanel() {
+		Debug.Log ("CCCC");
 		if (this.infoUIMap.Keys.Count > 0) {
 			foreach (string key in this.infoMap.Keys) {
 				Destroy (this.infoUIMap[key].gameObject);
@@ -179,7 +180,7 @@ public class InformationUIScript : MonoBehaviour {
 		Transform valueField = this.addNewKeyValuePanelInstance.FindChild ("ValueField");
 
 
-		cancelButton.GetComponent<Button> ().onClick.AddListener( () => destroyPanel() );
+		cancelButton.GetComponent<Button> ().onClick.AddListener( () => hide() );
 
 		addButton.GetComponent<Button> ().onClick.AddListener( () => addNewKeyValue(keyField.GetComponent<InputField> ().text, valueField.GetComponent<InputField> ().text) );
 	}
@@ -243,7 +244,8 @@ public class InformationUIScript : MonoBehaviour {
 
 	void disableWindow ()
 	{
-		if (informationWindowInstance)
-			destroyPanel();
+		if (informationWindowInstance || addNewKeyValuePanelInstance) {
+			destroyPanel ();
+		}
 	}
 }
