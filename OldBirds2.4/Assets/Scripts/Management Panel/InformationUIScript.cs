@@ -90,9 +90,9 @@ public class InformationUIScript : MonoBehaviour {
 	}
 	private void mouseOverBird(){
 		if (managementScript.getSelectionList ().Count <= 0) {
-			if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag == "Bird" && this.enabled == false) {
+			setModifiable(false);
+			if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag == "Bird" && managementScript.getPointerObject () == this.gameObject && this.enabled == false) {
 				show ();
-				setModifiable(false);
 			} else if (managementScript.getPointerObject () == null && this.enabled == true) {
 				hide ();
 			} else if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag != "Bird" && this.enabled == true) {
@@ -102,7 +102,9 @@ public class InformationUIScript : MonoBehaviour {
 			foreach (GameObject bird in managementScript.getSelectionList()) {
 				if (bird == this.gameObject) {
 					show ();
-					setModifiable(true);
+					setModifiable (true);
+				} else {
+					setModifiable (false);
 				}
 			}
 		}
