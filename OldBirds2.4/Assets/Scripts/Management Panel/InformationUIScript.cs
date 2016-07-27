@@ -92,7 +92,9 @@ public class InformationUIScript : MonoBehaviour {
 		if (managementScript.getSelectionList ().Count <= 0) {
 			setModifiable(false);
 			if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag == "Bird" && managementScript.getPointerObject () == this.gameObject && this.enabled == false) {
-				show ();
+				if (!managementScript.getSelectedObject ()) {
+					show ();
+				}
 			} else if (managementScript.getPointerObject () == null && this.enabled == true) {
 				hide ();
 			} else if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag != "Bird" && this.enabled == true) {
