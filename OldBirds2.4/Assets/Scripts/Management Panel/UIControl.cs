@@ -8,10 +8,11 @@ public class UIControl : MonoBehaviour {
 	private GameObject holder;
 	private ManagementPanel managementScript;
 	private Vector3 birdLocation;
-	private bool check = true;
+	public GameObject UIElement;
+	private GameObject currentUIelement;
+
 	// Use this for initialization
 	void Start () {
-		text = gameObject.GetComponent<Text>();
 		holder = GameObject.Find("MainController");
 		managementScript = holder.GetComponent<ManagementPanel> ();
 	}
@@ -21,18 +22,23 @@ public class UIControl : MonoBehaviour {
 
 	}
 	void checkBird(){
-		if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag == "Bird" ) {
+		if (managementScript.getPointerObject () != null && managementScript.getPointerObject ().tag == "Bird" && currentUIelement == null ) {
 			Vector2 viewportPoint = Camera.main.WorldToViewportPoint (birdLocation);
-			print(viewportPoint);
-
-			viewportPoint = new Vector2 (
-				viewportPoint.x + 0.275f,
-				viewportPoint.y - 0.2f
-			);
-			text.rectTransform.anchorMin = viewportPoint;  
-			text.rectTransform.anchorMax = viewportPoint; 
-			print (text.rectTransform.anchoredPosition);
-			check = false;
+			if (viewportPoint.x < 0.6) {
+				viewportPoint = new Vector2 (
+					viewportPoint.x + 0.275f,
+					viewportPoint.y - 0.2f
+				);
+			}
+			else if(viewportPoint.x >= 0.6){
+				viewportPoint = new Vector2 (
+					viewportPoint.x + 0.05f,
+					viewportPoint.y - 0.2f
+				);
+			}
+			currentUIelement = Instantiate (UIElement, new Vector3(0f,0f,0f), Quaternion.identity) as GameObject;
+			//currentUIelement.AddComponent<RectTransform> ();
+			currentUIelement.transform.SetParent (GameObject.Find("Canvas").transform);
 
 		} else {}
 	}
