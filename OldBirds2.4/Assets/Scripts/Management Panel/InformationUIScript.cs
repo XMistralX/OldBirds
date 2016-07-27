@@ -101,13 +101,18 @@ public class InformationUIScript : MonoBehaviour {
 				hide ();
 			}
 		} else {
+			bool isFound = false;
 			foreach (GameObject bird in managementScript.getSelectionList()) {
 				if (bird == this.gameObject) {
 					show ();
 					setModifiable (true);
-				} else {
-					setModifiable (false);
+					isFound = true;
+					break;
 				}
+			}
+			if (!isFound) {
+				setModifiable (false);
+				hide ();
 			}
 		}
 	}
