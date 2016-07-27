@@ -60,9 +60,10 @@ public class InformationUIScript : MonoBehaviour {
 	}
 
 	private void renderUI() {
+		int counter = 0;
 		foreach (string key in this.infoMap.Keys) {
 			GameObject eachKeyValue = Instantiate (KeyValue, new Vector3(40f,40f,0f), Quaternion.identity) as GameObject;
-			eachKeyValue.transform.SetParent (GameObject.Find("Canvas").transform);
+			eachKeyValue.transform.SetParent (GameObject.Find("InformationPanel").transform);
 			Transform keyTransform = eachKeyValue.transform.FindChild ("Key");
 			keyTransform.GetComponent<Text> ().text = key;
 			eachKeyValue.transform.name = string.Format ("KeyValue ({0})",key);
@@ -71,6 +72,10 @@ public class InformationUIScript : MonoBehaviour {
 			valueTransform.GetComponent<InputField> ().text = this.infoMap[key];
 			UIMap.Add (keyTransform, valueTransform);
 
+			eachKeyValue.GetComponent<RectTransform>().anchoredPosition = new Vector3 (0f, 0f-(counter*90f), 0f);
+			eachKeyValue.transform.localScale = new Vector3 (3.5f,3.5f,3.5f);
+
+			counter++;
 		}
 		updateInfo ();
 	}
