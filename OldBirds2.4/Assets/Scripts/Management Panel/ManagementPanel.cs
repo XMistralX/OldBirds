@@ -235,6 +235,33 @@ public class ManagementPanel : MonoBehaviour {
 			}
 		}
 	}
+	public void changeYAxisRotation(int choice){
+		switch(choice){
+		case 0:
+			selectedObject.transform.eulerAngles = new Vector3 (
+				selectedObject.transform.eulerAngles.x,
+				0,
+				selectedObject.transform.eulerAngles.z
+			);
+			break;
+		case 1:
+			selectedObject.transform.eulerAngles = new Vector3 (
+				selectedObject.transform.eulerAngles.x,
+				selectedObject.transform.eulerAngles.y +1,
+				selectedObject.transform.eulerAngles.z
+			);
+			break;
+		case -1:
+			selectedObject.transform.eulerAngles = new Vector3 (
+				selectedObject.transform.eulerAngles.x,
+				selectedObject.transform.eulerAngles.y -1,
+				selectedObject.transform.eulerAngles.z
+			);
+			break;
+		default:
+			break;
+		}
+	}
 	public void setObjectRotation(int axis , int newAngle){
 		if (this.selectedObject) {
 			switch (axis) {
