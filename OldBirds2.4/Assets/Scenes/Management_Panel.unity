@@ -3890,7 +3890,7 @@ GameObject:
   - 114: {fileID: 451980426}
   - 114: {fileID: 451980425}
   - 114: {fileID: 451980429}
-  - 114: {fileID: 451980428}
+  - 114: {fileID: 451980430}
   m_Layer: 5
   m_Name: Increase Size
   m_TagString: Untagged
@@ -3954,7 +3954,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 451980426}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277486094}
+        m_MethodName: changeObjectScale
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &451980426
@@ -3990,17 +4001,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 451980423}
---- !u!114 &451980428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 451980423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f48662b6ab9bf144fbd995bc69202a71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &451980429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4017,7 +4017,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 451980428}
+        - m_Target: {fileID: 451980430}
           m_MethodName: Pressed
           m_Mode: 0
           m_Arguments:
@@ -4034,8 +4034,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 451980428}
-          m_MethodName: NotPressed
+        - m_Target: {fileID: 451980430}
+          m_MethodName: notPressed
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4048,6 +4048,17 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &451980430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 451980423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafa73f7584d9174da971aa989861186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &463121555
 GameObject:
   m_ObjectHideFlags: 0
@@ -13681,7 +13692,7 @@ GameObject:
   - 114: {fileID: 1478990366}
   - 114: {fileID: 1478990365}
   - 114: {fileID: 1478990368}
-  - 114: {fileID: 1478990369}
+  - 114: {fileID: 1478990370}
   m_Layer: 5
   m_Name: Decrease Size
   m_TagString: Untagged
@@ -13745,7 +13756,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1478990366}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277486094}
+        m_MethodName: changeObjectScale
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1478990366
@@ -13797,7 +13819,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1478990369}
+        - m_Target: {fileID: 1478990370}
           m_MethodName: Pressed
           m_Mode: 0
           m_Arguments:
@@ -13814,8 +13836,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1478990369}
-          m_MethodName: NotPressed
+        - m_Target: {fileID: 1478990370}
+          m_MethodName: notPressed
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -13828,7 +13850,7 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
---- !u!114 &1478990369
+--- !u!114 &1478990370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -13836,7 +13858,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1478990363}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc553238d26f9d04baf69e7df5b69a52, type: 3}
+  m_Script: {fileID: 11500000, guid: dafa73f7584d9174da971aa989861186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1480033124
@@ -15561,7 +15583,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1694404940}
-          m_MethodName: NotPressed
+          m_MethodName: notPressed
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -15612,7 +15634,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1694404938}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277486094}
+        m_MethodName: changeYAxisRotation
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1694404938
@@ -15656,7 +15689,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1694404934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cd53c73b3439144a98c3c6abdd8ffaf, type: 3}
+  m_Script: {fileID: 11500000, guid: dafa73f7584d9174da971aa989861186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1711738806
@@ -16324,7 +16357,7 @@ GameObject:
   - 114: {fileID: 1785703540}
   - 114: {fileID: 1785703539}
   - 114: {fileID: 1785703538}
-  - 114: {fileID: 1785703542}
+  - 114: {fileID: 1785703543}
   m_Layer: 5
   m_Name: Rotate Left
   m_TagString: Untagged
@@ -16366,7 +16399,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1785703542}
+        - m_Target: {fileID: 1785703543}
           m_MethodName: Pressed
           m_Mode: 0
           m_Arguments:
@@ -16383,8 +16416,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1785703542}
-          m_MethodName: NotPressed
+        - m_Target: {fileID: 1785703543}
+          m_MethodName: notPressed
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -16435,7 +16468,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1785703540}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277486094}
+        m_MethodName: changeYAxisRotation
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1785703540
@@ -16471,7 +16515,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1785703536}
---- !u!114 &1785703542
+--- !u!114 &1785703543
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -16479,7 +16523,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1785703536}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 684b4dad45feb284a954a94036691675, type: 3}
+  m_Script: {fileID: 11500000, guid: dafa73f7584d9174da971aa989861186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1794804103
@@ -17441,7 +17485,7 @@ GameObject:
   - 114: {fileID: 1929080904}
   - 114: {fileID: 1929080903}
   - 114: {fileID: 1929080906}
-  - 114: {fileID: 1929080907}
+  - 114: {fileID: 1929080908}
   m_Layer: 5
   m_Name: Reset Size
   m_TagString: Untagged
@@ -17505,7 +17549,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1929080904}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277486094}
+        m_MethodName: changeObjectScale
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1929080904
@@ -17552,43 +17607,9 @@ MonoBehaviour:
   m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1929080907}
-          m_MethodName: Pressed
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - eventID: 3
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1929080907}
-          m_MethodName: NotPressed
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Delegates: []
   delegates: []
---- !u!114 &1929080907
+--- !u!114 &1929080908
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -17596,7 +17617,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1929080901}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89a25bfa5fa237e4b97eba0a293a8cb8, type: 3}
+  m_Script: {fileID: 11500000, guid: dafa73f7584d9174da971aa989861186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1929398525

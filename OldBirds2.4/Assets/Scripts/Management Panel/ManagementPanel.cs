@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
-using UnityEditor;
+
 public class ManagementPanel : MonoBehaviour {
 
 	public Shader silhouette;
